@@ -1,5 +1,5 @@
 import { fetchGithub } from ".";
 
-export const getUserOrganizations = async (user: string) => {
-  return await fetchGithub.get(`/users/${user}/orgs`);
+export const getUserOrganizations = async (username: string) => {
+  return await fetchGithub.get(`/users/${username}/orgs`);
 };

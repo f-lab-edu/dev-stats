@@ -36,19 +36,19 @@ const REPOS_WITH_LANGUAGES_QUERY = `
   }
 `;
 
-const getUserReposWithLanguages = async (user: string) => {
+const getUserReposWithLanguages = async (username: string) => {
   const result = await fetchGithub.post("/graphql", {
     query: REPOS_WITH_LANGUAGES_QUERY,
     variables: {
-      username: user,
+      username,
     },
   });
 
   return result.data.user.repositories.nodes;
 };
 
-export const getUserLanguages = async (user: string) => {
-  const repos = await getUserReposWithLanguages(user);
+export const getUserLanguages = async (username: string) => {
+  const repos = await getUserReposWithLanguages(username);
   const languageStats: LanguageStats = {};
 
   repos.forEach((repo: RepoWithLanguages) => {
