@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 type Options = Omit<RequestInit, "body">;
 
 type CreateOptions = {
@@ -31,7 +30,6 @@ class Request {
     });
   }
 
-  // eslint-disable-next-line no-undef
   private async fetch(url: string, options: RequestInit) {
     try {
       const response = await fetch(url, options);
