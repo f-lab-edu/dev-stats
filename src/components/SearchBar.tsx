@@ -33,7 +33,7 @@ const SearchBar = forwardRef(
     const buttonRef = useRef<HTMLButtonElement>(null);
     const isValueExist = value.length > 0;
 
-    const buttonClassName = isValueExist ? "active" : "inactive";
+    const activeState = isValueExist ? "active" : "inactive";
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
@@ -81,7 +81,7 @@ const SearchBar = forwardRef(
           aria-label="Search"
           tabIndex={0}
           onClick={onSearch}
-          className={cn(ButtonVariants({ buttonClassName, size }))}
+          className={cn(ButtonVariants({ activeState, size }))}
         >
           <Image
             src="/icon/next.svg"
@@ -97,14 +97,14 @@ const SearchBar = forwardRef(
 );
 
 const ContainerVariants = cva(
-  `flex bg-white pl-4 pr-2 rounded-full
-  w-full max-w-[400px] gap-3 items-center
+  `flex bg-white pl-4 pr-2
+  w-full gap-3 items-center
   hover:shadow-md focus:shadow-md focus-within:shadow-md`,
   {
     variants: {
       size: {
-        sm: "h-9",
-        lg: "h-12",
+        sm: "h-9 rounded-[18px]",
+        lg: "h-12 rounded-[24px]",
       },
     },
   },
@@ -116,7 +116,7 @@ const ButtonVariants = cva(
   focus:outline-none focus:ring-2 focus:ring-blue-400`,
   {
     variants: {
-      buttonClassName: {
+      activeState: {
         active: "bg-blue-300 cursor-pointer",
         inactive: "bg-gray-300 cursor-default",
       },
