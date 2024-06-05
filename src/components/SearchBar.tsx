@@ -15,6 +15,7 @@ type SearchBarProps = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;
+  onReset?: () => void;
   size?: "sm" | "lg";
 } & Omit<HTMLAttributes<HTMLInputElement>, "size" | "value" | "onChange">;
 
@@ -25,6 +26,7 @@ const SearchBar = forwardRef(
       value,
       onChange,
       onSearch,
+      onReset,
       size = "lg",
       ...props
     }: SearchBarProps,
@@ -40,6 +42,11 @@ const SearchBar = forwardRef(
         e.preventDefault();
         buttonRef.current?.click();
       }
+    };
+
+    const handleReset = () => {
+      onChange({ target: { value: "" } } as ChangeEvent<HTMLInputElement>);
+      onReset?.();
     };
 
     return (
@@ -72,9 +79,7 @@ const SearchBar = forwardRef(
           width={TYPE_ICON_SIZE[size]}
           height={TYPE_ICON_SIZE[size]}
           className={cn(["cursor-pointer", { hidden: !isValueExist }])}
-          onClick={() =>
-            onChange({ target: { value: "" } } as ChangeEvent<HTMLInputElement>)
-          }
+          onClick={handleReset}
         />
         <button
           ref={buttonRef}
