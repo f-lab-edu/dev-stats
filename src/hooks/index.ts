@@ -1,2 +1,2 @@
 export * from "./useSearchUser";
-export * from "./useSearchUserQuery";
+export * from "./useFetchUsersBySearchQuery";
