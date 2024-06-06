@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "prepare": "husky"
@@ -19,7 +20,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint"
+      "eslint",
+      "prettier --write"
     ]
   },
   "dependencies": {
