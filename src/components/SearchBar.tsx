@@ -55,7 +55,7 @@ const SearchBar = forwardRef(
         className={cn([ContainerVariants({ size }), containerClassName])}
       >
         <Image
-          src="/icon/search.svg"
+          src="/search.svg"
           alt="search"
           width={TYPE_ICON_SIZE[size]}
           height={TYPE_ICON_SIZE[size]}
@@ -74,7 +74,7 @@ const SearchBar = forwardRef(
           {...props}
         />
         <Image
-          src="/icon/x-close.svg"
+          src="/x-close.svg"
           alt="clear"
           width={TYPE_ICON_SIZE[size]}
           height={TYPE_ICON_SIZE[size]}
@@ -89,7 +89,7 @@ const SearchBar = forwardRef(
           className={cn(ButtonVariants({ activeState, size }))}
         >
           <Image
-            src="/icon/next.svg"
+            src="/next.svg"
             alt="search_button"
             width={TYPE_ICON_SIZE[size]}
             height={TYPE_ICON_SIZE[size]}

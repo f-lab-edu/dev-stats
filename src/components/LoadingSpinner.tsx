@@ -3,7 +3,7 @@ import Image from "next/image";
 export const LoadingSpinner = () => {
   return (
     <Image
-      src={"/icon/loading-spinner.png"}
+      src={"/loading-spinner.png"}
       alt="loading_spinner"
       width={36}
       height={36}
