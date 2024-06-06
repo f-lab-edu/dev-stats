@@ -1,2 +1,2 @@
 import "./reset.css";
-import "./globals.css";
+import "./tailwind.css";
