@@ -33,6 +33,7 @@ const MainPageClient = () => {
           ])}
         />
         <SearchPanel
+          isVisible={searchQuery.length > 2}
           searchQuery={searchQuery}
           className={SEARCH_BAR_MAX_WIDTH_CLASS_NAME}
         />
