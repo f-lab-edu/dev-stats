@@ -1,15 +1,20 @@
+import { AsyncState } from "@/types";
 import { LoadingSpinner } from "./LoadingSpinner";
 
 type FallbackProps = {
-  state: "PENDING" | "NO_RESULT" | "ERROR";
+  aysncState: AsyncState;
 };
 
-export const Fallback = ({ state }: FallbackProps) => {
-  const FALLBACK = {
-    PENDING: <LoadingSpinner />,
-    NO_RESULT: "No results found",
-    ERROR: "An error occurred",
+export const Fallback = ({ aysncState }: FallbackProps) => {
+  const FALLBACK: {
+    [key in AsyncState]?: JSX.Element | string;
+  } = {
+    LOADING: <LoadingSpinner />,
+    NO_RESULT: <p>No results found</p>,
+    ERROR: <p>An error occurred</p>,
   };
 
-  return <div className="flex-row-center full-size">{FALLBACK[state]}</div>;
+  return (
+    <div className="flex-row-center full-size">{FALLBACK[aysncState]}</div>
+  );
 };
