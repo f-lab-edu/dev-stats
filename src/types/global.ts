@@ -1,1 +1,1 @@
-export type FallbackState = "PENDING" | "NO_RESULT" | "ERROR";
+export type AsyncState = "LOADING" | "NO_RESULT" | "ERROR" | "SUCCESS";
