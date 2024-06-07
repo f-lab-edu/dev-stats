@@ -5,16 +5,22 @@ type CreateOptions = {
 } & Options;
 
 class Request {
-  baseURL: string;
-  options: Options;
+  private baseURL: string;
+  private options: Options;
 
   constructor(options?: CreateOptions) {
-    this.baseURL = options?.baseURL || "";
-    this.options = options || {};
+    const { baseURL, ...otherOptions } = options || {};
+    this.baseURL = baseURL || "";
+    this.options = otherOptions;
+  }
+
+  create(options?: CreateOptions) {
+    return new Request(options);
   }
 
   get(url: string, options?: Options) {
-    return this.fetch(this.baseURL + url, {
+    const fullUrl = this.constructURL(url);
+    return this.fetch(fullUrl, {
       method: "GET",
       ...this.options,
       ...options,
@@ -22,12 +28,21 @@ class Request {
   }
 
   post(url: string, data: unknown, options?: Options) {
-    return this.fetch(this.baseURL + url, {
+    const fullUrl = this.constructURL(url);
+    return this.fetch(fullUrl, {
       method: "POST",
       body: JSON.stringify(data),
       ...this.options,
       ...options,
     });
+  }
+
+  private constructURL(url: string) {
+    if (this.baseURL === "") {
+      return url;
+    }
+
+    return new URL(url, this.baseURL).href;
   }
 
   private async fetch(url: string, options: RequestInit) {
@@ -42,12 +57,8 @@ class Request {
       throw error;
     }
   }
-
-  static create(options: CreateOptions) {
-    return new Request(options);
-  }
 }
 
 const request = new Request();
 
-export { request, Request };
+export { request };
