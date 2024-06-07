@@ -23,14 +23,14 @@ export const SearchPanel = ({
   className,
   ...props
 }: SearchPanelProps) => {
-  const { searchedUsers, state } = useSearchUserQuery(searchQuery);
+  const { searchedUsers, resultState } = useSearchUserQuery(searchQuery);
 
   if (!isVisible) return null;
 
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
       <hr className="mx-4 bg-blue-200" />
-      <SearchedUserList userList={searchedUsers} state={state} />
+      <SearchedUserList userList={searchedUsers} aysncState={resultState} />
     </div>
   );
 };
