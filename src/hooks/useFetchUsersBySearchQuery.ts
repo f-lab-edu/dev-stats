@@ -12,6 +12,13 @@ export const useSearchUserQuery = (searchQuery: string) => {
   const isSearchResultExist = searchResult.length > 0;
   const isInitialPending =
     searchQuery.length > 2 && !isNoResult && searchResult.length === 0;
+  const state = isInitialPending
+    ? "PENDING"
+    : isNoResult
+      ? "NO_RESULT"
+      : isSearchResultExist
+        ? "SUCCESS"
+        : "ERROR";
 
   const searchUser = async (searchQuery: string) => {
     if (searchQuery.length < 3) {
@@ -42,8 +49,6 @@ export const useSearchUserQuery = (searchQuery: string) => {
   return {
     isPending,
     searchedUsers: searchResult,
-    isSearchResultExist,
-    isInitialPending,
-    isNoResult,
+    state,
   };
 };
