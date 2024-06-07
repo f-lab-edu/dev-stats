@@ -2,7 +2,6 @@
 
 import { cva } from "class-variance-authority";
 import { ClassValue } from "clsx";
-scrollBy;
 
 import { useSearchUserQuery } from "@/hooks";
 import { cn } from "@/utils";
