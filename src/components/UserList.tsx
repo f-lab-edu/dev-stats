@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { FallbackState } from "@/types";
+import { AsyncState } from "@/types";
 
 import { Fallback } from "./Fallback";
 
@@ -10,15 +10,15 @@ type SearchedUserListProps = {
     login: string;
     avatar_url: string;
   }[];
-  state?: FallbackState;
+  aysncState: AsyncState;
 };
 
 export const SearchedUserList = ({
   userList,
-  state,
+  aysncState,
 }: SearchedUserListProps) => {
-  if (state) {
-    return <Fallback state={state} />;
+  if (aysncState !== "SUCCESS") {
+    return <Fallback aysncState={aysncState} />;
   }
 
   return (
