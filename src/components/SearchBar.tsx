@@ -5,6 +5,7 @@ import {
   useRef,
   ChangeEvent,
   HTMLAttributes,
+  useImperativeHandle,
 } from "react";
 import Image from "next/image";
 import { cva } from "class-variance-authority";
@@ -32,10 +33,13 @@ const SearchBar = forwardRef(
     }: SearchBarProps,
     ref: Ref<HTMLInputElement>,
   ) => {
+    const internalRef = useRef<HTMLInputElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const isValueExist = value.length > 0;
 
     const activeState = isValueExist ? "active" : "inactive";
+
+    useImperativeHandle(ref, () => internalRef.current as HTMLInputElement);
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
@@ -61,16 +65,13 @@ const SearchBar = forwardRef(
           height={TYPE_ICON_SIZE[size]}
         />
         <input
-          ref={ref}
+          ref={internalRef}
           value={value}
           onChange={onChange}
           placeholder="Search for a user"
           aria-label="Search for a user"
           onKeyDown={handleKeyDown}
-          className="
-          w-full bg-transparent outline-none
-          placeholder-gray-400 flex-1
-          "
+          className={cn(InputVariants({ size }))}
           {...props}
         />
         <Image
@@ -108,8 +109,21 @@ const ContainerVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-9 rounded-[18px]",
+        sm: "h-10 rounded-[18px]",
         lg: "h-12 rounded-[24px]",
+      },
+    },
+  },
+);
+
+const InputVariants = cva(
+  `w-full bg-transparent outline-none
+   placeholder-gray-400 flex-1`,
+  {
+    variants: {
+      size: {
+        sm: "text-[15px]",
+        lg: "text-[16px]",
       },
     },
   },
@@ -134,7 +148,7 @@ const ButtonVariants = cva(
 );
 
 const TYPE_ICON_SIZE = {
-  sm: 16,
+  sm: 20,
   lg: 24,
 };
 
