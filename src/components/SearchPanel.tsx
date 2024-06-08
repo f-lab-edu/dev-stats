@@ -28,7 +28,8 @@ export const SearchPanel = ({
 
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
-      <hr className="mx-4 bg-blue-200" />
+      <div className="absolute top-[-6px] w-full h-4 bg-white z-10"></div>
+      <hr className="relative mx-4 h-[1px] bg-blue-100 z-20" />
       <SearchedUserList
         userList={searchedUsers}
         aysncState={resultState}
@@ -41,7 +42,7 @@ export const SearchPanel = ({
 const ContainerVariants = cva(
   `absolute bg-white pb-4
   w-full gap-3 items-center z-10
-  shadow-md`,
+  shadow-out`,
   {
     variants: {
       size: {
