@@ -101,9 +101,12 @@ const SearchBar = forwardRef(
 );
 
 const ContainerVariants = cva(
-  `flex bg-white pl-4 pr-2
+  `
+  flex bg-white pl-4 pr-2 border-[1px] border-blue-100 border-solid
   w-full gap-3 items-center
-  hover:shadow-md focus:shadow-md focus-within:shadow-md`,
+  hover:shadow-out hover:border-transparent
+  focus:shadow-out focus-within:shadow-out focus-within:border-transparent
+  `,
   {
     variants: {
       size: {
