@@ -12,7 +12,7 @@ export const Header = () => {
         "
       >
         <Logo size="sm" />
-        <div className="absolute-center max-w-[400px] w-full">
+        <div className="hidden md:flex absolute-center max-w-[400px] w-full">
           <Search size="sm" />
         </div>
         <Link href="/">버튼</Link>
