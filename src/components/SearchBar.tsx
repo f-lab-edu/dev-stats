@@ -16,7 +16,6 @@ type SearchBarProps = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;
-  onReset?: () => void;
   size?: "sm" | "lg";
 } & Omit<HTMLAttributes<HTMLInputElement>, "size" | "value" | "onChange">;
 
@@ -27,7 +26,6 @@ const SearchBar = forwardRef(
       value,
       onChange,
       onSearch,
-      onReset,
       size = "lg",
       ...props
     }: SearchBarProps,
@@ -50,7 +48,7 @@ const SearchBar = forwardRef(
 
     const handleReset = () => {
       onChange({ target: { value: "" } } as ChangeEvent<HTMLInputElement>);
-      onReset?.();
+      internalRef.current?.focus();
     };
 
     return (
