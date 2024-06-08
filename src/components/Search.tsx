@@ -17,7 +17,9 @@ export const Search = ({ size = "sm" }: SearchProps) => {
     useSearchUser();
 
   const containerRadiusClassName =
-    searchQuery.length < 3 ? "" : "rounded-bl-none rounded-br-none";
+    searchQuery.length < 3
+      ? ""
+      : "rounded-bl-none rounded-br-none border-transparent shadow-out";
 
   const maxWidthClassName = {
     sm: "max-w-[400px]",
