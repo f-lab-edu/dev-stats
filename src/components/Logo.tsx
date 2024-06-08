@@ -20,7 +20,7 @@ const LogoVariants = cva(`font-semibold text-blue-500`, {
   variants: {
     size: {
       sm: "text-3xl",
-      lg: "text-6xl ",
+      lg: "text-5xl ",
     },
   },
 });
