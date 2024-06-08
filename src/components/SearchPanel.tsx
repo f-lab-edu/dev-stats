@@ -29,7 +29,11 @@ export const SearchPanel = ({
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
       <hr className="mx-4 bg-blue-200" />
-      <SearchedUserList userList={searchedUsers} aysncState={resultState} />
+      <SearchedUserList
+        userList={searchedUsers}
+        aysncState={resultState}
+        size={size}
+      />
     </div>
   );
 };
@@ -41,7 +45,7 @@ const ContainerVariants = cva(
   {
     variants: {
       size: {
-        sm: "top-9 rounded-t-[18px]",
+        sm: "top-9 rounded-b-[18px] h-[178px]",
         lg: "top-12 rounded-b-[24px] h-[185px]",
       },
     },
