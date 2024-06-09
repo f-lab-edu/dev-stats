@@ -13,9 +13,11 @@ export const getDashboardData = async (username: string) => {
     if (response.status === "fulfilled") {
       data[Object.keys(promises)[index]] = response.value;
     }
+
+    return null;
   });
 
-  const profileData = data.profile as ProfileType;
+  const profileData = data.profile as ProfileType | null;
 
   return { profileData };
 };
