@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { Search } from "./Search";
+import { Search } from "../search/Search";
 
 export const Header = () => {
   return (
