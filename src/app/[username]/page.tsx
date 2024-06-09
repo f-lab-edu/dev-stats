@@ -9,9 +9,9 @@ type UserPageProps = {
 
 const UserPage = async ({ params }: UserPageProps) => {
   const username = params.username;
-  const { profileData } = await getDashboardData(username);
+  const { profile, languages } = await getDashboardData(username);
 
-  return <UserPageClient profileData={profileData} />;
+  return <UserPageClient profileData={profile} languagesData={languages} />;
 };
 
 export default UserPage;
