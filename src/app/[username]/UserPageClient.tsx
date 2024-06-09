@@ -24,7 +24,7 @@ export const UserPageClient = ({
   organizations,
 }: UserPageClientProps) => {
   return (
-    <div className="mt-5 *:w-full max-w-[1100px]">
+    <div className="mt-4 w-full max-w-[1100px]">
       <div
         className="
           flex flex-col px-5 gap-3 w-full
