@@ -3,7 +3,7 @@ export type SearchedUser = {
   avatar_url: string;
 };
 
-export type Profile = {
+export type ProfileType = {
   login: string;
   avatar_url: string;
   html_url: string;
