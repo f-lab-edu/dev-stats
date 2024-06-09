@@ -1,6 +1,7 @@
 import { ProfileType } from "@/types";
 
-import { Profile, Section } from "@/components";
+import { Profile, ProfileSkeleton, Section } from "@/components";
+import { Suspense } from "react";
 
 type UserPageClientProps = {
   profileData: ProfileType | null;
@@ -22,9 +23,9 @@ export const UserPageClient = ({ profileData }: UserPageClientProps) => {
             lg:grid lg:col-span-3 lg:row-span-6
           "
         >
-          <Section className="row-span-8">
-            <Profile profileData={profileData} />
-          </Section>
+          <Suspense fallback={<ProfileSkeleton className="row-span-8" />}>
+            <Profile profileData={profileData} className="row-span-8" />
+          </Suspense>
           <Section title="Languages" className="row-span-2">
             언어
           </Section>
