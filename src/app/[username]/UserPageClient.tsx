@@ -1,10 +1,12 @@
 import { Suspense } from "react";
 
-import { LanguagesType, ProfileType } from "@/types";
+import { LanguagesType, OrganizationType, ProfileType } from "@/types";
 
 import {
   Language,
   LanguageSkeleton,
+  Organization,
+  OrganizationSkeleton,
   Profile,
   ProfileSkeleton,
   Section,
@@ -13,41 +15,46 @@ import {
 type UserPageClientProps = {
   profileData: ProfileType | null;
   languagesData: LanguagesType | null;
+  organizations: OrganizationType[] | null;
 };
 
 export const UserPageClient = ({
   profileData,
   languagesData,
+  organizations,
 }: UserPageClientProps) => {
   return (
-    <div className="mt-6 w-full max-w-[1100px]">
+    <div className="mt-4 w-full max-w-[1100px]">
       <div
         className="
-          flex flex-col px-5 gap-4 w-full
-          lg:w-[1000px] lg:h-[800px]
+          flex flex-col px-5 gap-3 w-full
+          lg:w-[1000px] lg:h-[900px]
           lg:grid lg:grid-cols-10 lg:grid-rows-9
         "
       >
         <div
           className="
-            flex flex-col gap-4
+            flex flex-col gap-3
             lg:grid lg:col-span-3 lg:row-span-6
           "
         >
           <Suspense fallback={<ProfileSkeleton className="row-span-8" />}>
             <Profile profileData={profileData} className="row-span-8" />
           </Suspense>
-          <Suspense fallback={<LanguageSkeleton className="row-span-6" />}>
-            <Language languageData={languagesData} className="row-span-6" />
+          <Suspense fallback={<LanguageSkeleton className="row-span-2" />}>
+            <Language languageData={languagesData} className="row-span-2" />
           </Suspense>
-          <Section title="Organizations" className="row-span-1">
-            조직
-          </Section>
+          <Suspense fallback={<OrganizationSkeleton className="row-span-1" />}>
+            <Organization
+              oranizationsData={organizations}
+              className="row-span-1"
+            />
+          </Suspense>
         </div>
 
         <div
           className="
-           flex flex-col  gap-4
+           flex flex-col gap-3
            lg:grid lg:col-span-7 lg:row-span-6
           "
         >
