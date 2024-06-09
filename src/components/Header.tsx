@@ -4,7 +4,7 @@ import { Search } from "./Search";
 
 export const Header = () => {
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex justify-center items-center w-full bg-white/70">
       <div
         className="
           flex items-center w-full max-w-[1100px] h-20

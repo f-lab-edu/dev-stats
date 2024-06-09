@@ -28,7 +28,7 @@ export const SearchPanel = ({
 
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
-      <div className="absolute top-[-6px] w-full h-4 bg-white z-10"></div>
+      <div className={cn(ShadowCoverVariants({ size }))} />
       <hr className="relative mx-4 h-[1px] bg-blue-100 z-20" />
       <SearchedUserList
         userList={searchedUsers}
@@ -52,3 +52,12 @@ const ContainerVariants = cva(
     },
   },
 );
+
+const ShadowCoverVariants = cva(`absolute w-full h-4 bg-white`, {
+  variants: {
+    size: {
+      sm: "top-[-4px]",
+      lg: "top-[-6px]",
+    },
+  },
+});
