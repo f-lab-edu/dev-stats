@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { Search } from "../search/Search";
+import { Search } from "../search";
 
 export const Header = () => {
   return (
-    <div className="flex justify-center items-center w-full bg-white/70">
+    <div className="flex justify-center items-center w-full">
       <div
         className="
-          flex items-center w-full max-w-[1100px] h-20
+          flex items-center w-full max-w-[1100px] h-24
           justify-between relative px-5
         "
       >
