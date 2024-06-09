@@ -18,7 +18,7 @@ export const Section = ({
     <section
       className={cn(
         `
-          px-4 py-3 rounded-2xl border border-gray-50 border-solid
+          px-4 py-3 rounded-xl border border-gray-50 border-solid
           flex flex-col gap-2 bg-white/70 text-black/70
         `,
         className,
