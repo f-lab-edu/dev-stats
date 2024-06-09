@@ -36,7 +36,9 @@ const REPOS_WITH_LANGUAGES_QUERY = `
   }
 `;
 
-const getUserReposWithLanguages = async (username: string) => {
+const getUserReposWithLanguages = async (
+  username: string,
+): Promise<RepoWithLanguages[]> => {
   const result = await fetchGithub.post("/graphql", {
     query: REPOS_WITH_LANGUAGES_QUERY,
     variables: {
@@ -56,7 +58,11 @@ const extractLanguages = (repos: RepoWithLanguages[]) => {
   }, {} as LanguageStats);
 };
 
-const calculatePercent = (data: CalculatePercentProps) => {
+const sortLanguages = (data: Record<string, number>) => {
+  return Object.entries(data).sort(([, a], [, b]) => b - a);
+};
+
+const calculatePercent = (data: Record<string, number>) => {
   const total = Object.values(data).reduce((acc, value) => acc + value, 0);
   return Object.fromEntries(
     Object.entries(data).map(([key, value]) => [key, (value / total) * 100]),
@@ -66,9 +72,9 @@ const calculatePercent = (data: CalculatePercentProps) => {
 export const getUserLanguages = async (username: string) => {
   const repos = await getUserReposWithLanguages(username);
   const languageStats = extractLanguages(repos);
-  const languagePercent = calculatePercent(languageStats);
-  const sortedLanguagesArray = Object.entries(languagePercent).sort(
-    ([, a], [, b]) => b - a,
+  const sortedLanguages = sortLanguages(languageStats);
+  const languagePercent = calculatePercent(
+    Object.fromEntries(sortedLanguages.slice(0, 5)),
   );
-  return Object.fromEntries(sortedLanguagesArray);
+  return languagePercent;
 };
