@@ -21,3 +21,7 @@ export type ProfileType = {
   created_at: string;
   updated_at: string;
 };
+
+export type LanguagesType = {
+  [key: string]: number;
+};

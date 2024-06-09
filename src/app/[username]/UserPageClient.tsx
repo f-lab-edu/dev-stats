@@ -1,13 +1,24 @@
-import { ProfileType } from "@/types";
-
-import { Profile, ProfileSkeleton, Section } from "@/components";
 import { Suspense } from "react";
+
+import { LanguagesType, ProfileType } from "@/types";
+
+import {
+  Language,
+  LanguageSkeleton,
+  Profile,
+  ProfileSkeleton,
+  Section,
+} from "@/components";
 
 type UserPageClientProps = {
   profileData: ProfileType | null;
+  languagesData: LanguagesType | null;
 };
 
-export const UserPageClient = ({ profileData }: UserPageClientProps) => {
+export const UserPageClient = ({
+  profileData,
+  languagesData,
+}: UserPageClientProps) => {
   return (
     <div className="mt-6 w-full max-w-[1100px]">
       <div
@@ -26,9 +37,9 @@ export const UserPageClient = ({ profileData }: UserPageClientProps) => {
           <Suspense fallback={<ProfileSkeleton className="row-span-8" />}>
             <Profile profileData={profileData} className="row-span-8" />
           </Suspense>
-          <Section title="Languages" className="row-span-2">
-            언어
-          </Section>
+          <Suspense fallback={<LanguageSkeleton className="row-span-6" />}>
+            <Language languageData={languagesData} className="row-span-6" />
+          </Suspense>
           <Section title="Organizations" className="row-span-1">
             조직
           </Section>

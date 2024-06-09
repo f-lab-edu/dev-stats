@@ -40,11 +40,11 @@ export const ProfileSkeleton = (props: HTMLAttributes<HTMLElement>) => {
   return (
     <Section {...props}>
       <div className="flex flex-col items-center my-auto gap-2">
-        <div className="w-[150px] h-[150px] rounded-full bg-gray-200 animate-pulse" />
+        <div className="w-[150px] h-[150px] skeleton" />
         <div className="flex flex-col items-center gap-1">
-          <div className="w-36 h-[18px] rounded-full bg-gray-200 animate-pulse" />
-          <div className="w-24 h-[18px] rounded-full bg-gray-200 animate-pulse" />
-          <div className="w-48 h-[16px] rounded-full bg-gray-200 animate-pulse" />
+          <div className="w-36 h-[18px] skeleton" />
+          <div className="w-24 h-[18px] skeleton" />
+          <div className="w-48 h-[16px] skeleton" />
         </div>
       </div>
     </Section>

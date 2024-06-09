@@ -36,7 +36,9 @@ const REPOS_WITH_LANGUAGES_QUERY = `
   }
 `;
 
-const getUserReposWithLanguages = async (username: string) => {
+const getUserReposWithLanguages = async (
+  username: string,
+): Promise<RepoWithLanguages[]> => {
   const result = await fetchGithub.post("/graphql", {
     query: REPOS_WITH_LANGUAGES_QUERY,
     variables: {
@@ -47,19 +49,32 @@ const getUserReposWithLanguages = async (username: string) => {
   return result.data.user.repositories.nodes;
 };
 
+const extractLanguages = (repos: RepoWithLanguages[]) => {
+  return repos.reduce((acc, repo) => {
+    repo.languages.edges.forEach(({ node, size }) => {
+      acc[node.name] = (acc[node.name] || 0) + size;
+    });
+    return acc;
+  }, {} as LanguageStats);
+};
+
+const sortLanguages = (data: Record<string, number>) => {
+  return Object.entries(data).sort(([, a], [, b]) => b - a);
+};
+
+const calculatePercent = (data: Record<string, number>) => {
+  const total = Object.values(data).reduce((acc, value) => acc + value, 0);
+  return Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [key, (value / total) * 100]),
+  );
+};
+
 export const getUserLanguages = async (username: string) => {
   const repos = await getUserReposWithLanguages(username);
-  const languageStats: LanguageStats = {};
-
-  repos.forEach((repo: RepoWithLanguages) => {
-    repo.languages.edges.forEach(({ node, size }) => {
-      if (languageStats[node.name]) {
-        languageStats[node.name] += size;
-      } else {
-        languageStats[node.name] = size;
-      }
-    });
-  });
-
-  return languageStats;
+  const languageStats = extractLanguages(repos);
+  const sortedLanguages = sortLanguages(languageStats);
+  const languagePercent = calculatePercent(
+    Object.fromEntries(sortedLanguages.slice(0, 5)),
+  );
+  return languagePercent;
 };
