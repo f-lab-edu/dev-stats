@@ -45,3 +45,15 @@ export const Organization = ({
     </Section>
   );
 };
+
+export const OrganizationSkeleton = (props: HTMLAttributes<HTMLElement>) => {
+  return (
+    <Section title="Organizations" {...props}>
+      <div className="flex gap-1">
+        {[...Array(3)].map((_, index) => (
+          <div key={index} className="skeleton h-9 w-9 rounded-full" />
+        ))}
+      </div>
+    </Section>
+  );
+};
