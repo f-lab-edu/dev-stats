@@ -9,7 +9,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
-      {children}
+      <main className="flex flex-col items-center max-w-[1020px] mx-auto h-[100dvh]">
+        {children}
+      </main>
     </>
   );
 };
