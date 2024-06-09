@@ -2,6 +2,7 @@ import { HTMLAttributes } from "react";
 
 import { LanguagesType } from "@/types";
 import { LANGUAGE_COLOR } from "@/data/languageColor";
+import { cn } from "@/utils";
 
 import { Section } from "../common";
 import { BarChart } from "../chart";
@@ -44,3 +45,23 @@ const LanguageList = ({ languageData }: { languageData: LanguagesType }) => {
     </ul>
   );
 };
+
+export const LanguageSkeleton = (props: HTMLAttributes<HTMLElement>) => {
+  return (
+    <Section title="Languages" {...props}>
+      <div className="flex flex-col gap-4">
+        <div className="w-full h-3 skeleton" />
+        <ul className="flex flex-wrap gap-3 gap-y-[2px]">
+          {LANGUAGE_SKELETON_ARRAY.map((width, index) => (
+            <li key={index} className="flex items-center text-xs gap-1">
+              <div className={cn("skeleton h-2 w-2")} />
+              <div className={cn("skeleton h-3", width)} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Section>
+  );
+};
+
+const LANGUAGE_SKELETON_ARRAY = ["w-28", "w-20", "w-20", "w-24", "w-16"];
