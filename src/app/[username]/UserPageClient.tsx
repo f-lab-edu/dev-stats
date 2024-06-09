@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { LanguagesType, OrganizatioType, ProfileType } from "@/types";
+import { LanguagesType, OrganizationType, ProfileType } from "@/types";
 
 import {
   Language,
@@ -15,7 +15,7 @@ import {
 type UserPageClientProps = {
   profileData: ProfileType | null;
   languagesData: LanguagesType | null;
-  organizations: OrganizatioType[] | null;
+  organizations: OrganizationType[] | null;
 };
 
 export const UserPageClient = ({
