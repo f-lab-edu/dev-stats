@@ -5,7 +5,7 @@ import { cva } from "class-variance-authority";
 import { AsyncState } from "@/types";
 import { cn } from "@/utils";
 
-import { Fallback } from "./Fallback";
+import { Fallback } from "../async/Fallback";
 
 type SearchedUserListProps = {
   userList: {
