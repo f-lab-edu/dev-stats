@@ -2,29 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { cva } from "class-variance-authority";
 
-import { AsyncState } from "@/types";
 import { cn } from "@/utils";
-
-import { Fallback } from "../async/Fallback";
 
 type SearchedUserListProps = {
   userList: {
     login: string;
     avatar_url: string;
   }[];
-  aysncState: AsyncState;
   size: "sm" | "lg";
 };
 
 export const SearchedUserList = ({
   userList,
-  aysncState,
   size = "lg",
 }: SearchedUserListProps) => {
-  if (aysncState !== "SUCCESS") {
-    return <Fallback aysncState={aysncState} />;
-  }
-
   return (
     <ul className="pt-2 h-full">
       {userList.map(user => (
