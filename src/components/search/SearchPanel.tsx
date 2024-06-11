@@ -41,7 +41,7 @@ export const SearchPanel = ({
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
       <div className={cn(ShadowCoverVariants({ size }))} />
       <hr className="relative mx-4 h-[1px]x bg-blue-100 z-20" />
-      {searchedUsers ? (
+      {searchedUsers && searchedUsers.length > 0 ? (
         <SearchedUserList userList={searchedUsers} size={size} />
       ) : (
         <Fallback aysncState={resultState} />
