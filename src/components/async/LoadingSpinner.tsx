@@ -8,6 +8,7 @@ export const LoadingSpinner = () => {
       width={36}
       height={36}
       className="animate-spin"
+      data-testid="loading-spinner"
     />
   );
 };
