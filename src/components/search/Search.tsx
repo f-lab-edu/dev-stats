@@ -1,9 +1,9 @@
 "use client";
 
-import React from "react";
+import { ChangeEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { cn } from "@/utils";
-import { useSearchUser } from "@/hooks";
 
 import { SearchBar } from "./SearchBar";
 import { SearchPanel } from "./SearchPanel";
@@ -13,8 +13,18 @@ type SearchProps = {
 };
 
 export const Search = ({ size = "sm" }: SearchProps) => {
-  const { searchQuery, handleSearchButtonClick, handleSearchQueryChange } =
-    useSearchUser();
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchButtonClick = () => {
+    if (searchQuery.length > 0) {
+      router.push(`/${searchQuery}`);
+    }
+  };
 
   const containerRadiusClassName =
     searchQuery.length < 3
