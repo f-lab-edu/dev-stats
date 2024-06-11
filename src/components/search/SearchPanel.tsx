@@ -7,6 +7,7 @@ import { useSearchUserQuery } from "@/hooks";
 import { cn } from "@/utils";
 
 import { SearchedUserList } from "./UserList";
+import { Fallback } from "../async";
 
 type SearchPanelProps = {
   isVisible?: boolean;
@@ -22,19 +23,29 @@ export const SearchPanel = ({
   className,
   ...props
 }: SearchPanelProps) => {
-  const { searchedUsers, resultState } = useSearchUserQuery(searchQuery);
+  const { searchedUsers, isLoading, isError } = useSearchUserQuery(searchQuery);
+  const resultState = getAsyncState();
+
+  function getAsyncState() {
+    const isNoResult = searchedUsers !== null && searchedUsers.length === 0;
+
+    if (isError) return "ERROR";
+    if (isLoading) return "LOADING";
+    if (isNoResult) return "NO_RESULT";
+    return "SUCCESS";
+  }
 
   if (!isVisible) return null;
 
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
       <div className={cn(ShadowCoverVariants({ size }))} />
-      <hr className="relative mx-4 h-[1px] bg-blue-100 z-20" />
-      <SearchedUserList
-        userList={searchedUsers}
-        aysncState={resultState}
-        size={size}
-      />
+      <hr className="relative mx-4 h-[1px]x bg-blue-100 z-20" />
+      {searchedUsers ? (
+        <SearchedUserList userList={searchedUsers} size={size} />
+      ) : (
+        <Fallback aysncState={resultState} />
+      )}
     </div>
   );
 };
