@@ -41,3 +41,19 @@ export type OrganizationType = {
   description: string;
   html_url: string;
 };
+
+export type PullRequestNode = {
+  title: string;
+  url: string;
+  createdAt: string;
+  author?: {
+    login: string;
+  };
+};
+
+export type ContributionsType = {
+  repository: string;
+  stargazerCount: number;
+  avatarUrl: string;
+  pullRequests: PullRequestNode[];
+};
