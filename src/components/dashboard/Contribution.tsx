@@ -14,9 +14,9 @@ export const Contribution = ({
 }: ContributionProps) => {
   return (
     <Section title="Contribution" {...props}>
-      <div className="grid grid-cols-2 grid-rows-3 w-full h-full">
+      <div className="grid grid-cols-2 grid-rows-3 w-full h-full gap-1">
         {contributionsData?.map((repo, index) => (
-          <div key={index} className="flex flex-col gap-3 p-3">
+          <div key={index} className="flex flex-col gap-2 p-3 overflow-auto">
             <div className="flex gap-3 items-center">
               <Image
                 src={repo.avatarUrl}
@@ -29,24 +29,21 @@ export const Contribution = ({
                 <h2 className="text-md font-semibold leading-4">
                   {repo.repository.split("/")[1]}{" "}
                 </h2>
-                <span className="text-sm text-gray-400">
-                  (★ {(repo.stargazerCount / 1000).toFixed(1)}k)
+                <span className="text-sm text-blue-900/50">
+                  ★{(repo.stargazerCount / 1000).toFixed(1)}k
                 </span>
               </div>
             </div>
             <ul>
-              {repo.pullRequests.map((pr, idx) => (
-                <li key={idx} className="text-xs list-disc ml-4">
-                  <a
-                    href={pr.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline leading-3"
-                  >
-                    {pr.title}
+              {/* {repo.pullRequests.map((pr, idx) => (
+                <li key={idx} className="list-disc ml-4">
+                  <a href={pr.url} target="_blank" rel="noopener noreferrer">
+                    <p className="hover:underline text-[13px] leading-4">
+                      {pr.title}
+                    </p>
                   </a>
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
         ))}
