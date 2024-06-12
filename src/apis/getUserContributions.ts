@@ -25,16 +25,6 @@ query($username: String!) {
           owner {
             avatarUrl
           }
-          pullRequests: pullRequests(first: 100, orderBy: {field: CREATED_AT, direction: DESC}) {
-            nodes {
-              title
-              url
-              createdAt
-              author {
-                login
-              }
-            }
-          }
         }
       }
     }
@@ -57,13 +47,6 @@ export const getUseContributions = async (username: string) => {
     repository: repo.repository.nameWithOwner,
     stargazerCount: repo.repository.stargazerCount,
     avatarUrl: repo.repository.owner.avatarUrl,
-    pullRequests: repo.repository.pullRequests.nodes
-      .filter((pr: PullRequestNode) => pr.author.login === username)
-      .map((pr: PullRequestNode) => ({
-        title: pr.title,
-        url: pr.url,
-        createdAt: pr.createdAt,
-      })),
   }));
 
   const topRepositories = userContributions
