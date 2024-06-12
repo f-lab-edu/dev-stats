@@ -10,14 +10,12 @@ import { SearchedUserList } from "./UserList";
 import { Fallback } from "../async";
 
 type SearchPanelProps = {
-  isVisible?: boolean;
   searchQuery: string;
   size?: "sm" | "lg";
   className?: ClassValue;
 } & Omit<React.HTMLProps<HTMLDivElement>, "size">;
 
 export const SearchPanel = ({
-  isVisible = true,
   searchQuery,
   size = "lg",
   className,
@@ -34,8 +32,6 @@ export const SearchPanel = ({
     if (isNoResult) return "NO_RESULT";
     return "SUCCESS";
   }
-
-  if (!isVisible) return null;
 
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>

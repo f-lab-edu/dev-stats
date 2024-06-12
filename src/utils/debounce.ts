@@ -1,15 +1,23 @@
 export function debounce<T extends (...args: Parameters<T>) => void>(
   func: T,
-  timeout: number,
-): (...funcArgs: Parameters<T>) => void {
+  wait: number,
+): T & { cancel(): void } {
   let timer: NodeJS.Timeout | null = null;
 
-  return (...args: Parameters<T>): void => {
+  const debounced = (...args: Parameters<T>): void => {
     if (timer !== null) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
       func(...args);
-    }, timeout);
+    }, wait);
   };
+
+  debounced.cancel = () => {
+    if (timer !== null) {
+      clearTimeout(timer);
+    }
+  };
+
+  return debounced as T & { cancel(): void };
 }
