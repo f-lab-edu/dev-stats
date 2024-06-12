@@ -1,12 +1,19 @@
 import { getUserProfile } from "./getUserProfile";
 import { getUserLanguages } from "./getUserLanguages";
 import { getUserOrganizations } from "./getUserOrganizations";
-import { LanguagesType, OrganizationType, ProfileType } from "@/types";
+import {
+  ContributionsType,
+  LanguagesType,
+  OrganizationType,
+  ProfileType,
+} from "@/types";
+import { getUseContributions } from "./getUserContributions";
 
 type DashboardData = {
   profile: ProfileType | null;
   languages: LanguagesType | null;
   organizations: OrganizationType[] | null;
+  contributions: ContributionsType[] | null;
 };
 
 export const getDashboardData = async (
@@ -16,6 +23,7 @@ export const getDashboardData = async (
     profile: getUserProfile(username),
     languages: getUserLanguages(username),
     organizations: getUserOrganizations(username),
+    contributions: getUseContributions(username),
   };
 
   const response = await Promise.allSettled(Object.values(promises));
