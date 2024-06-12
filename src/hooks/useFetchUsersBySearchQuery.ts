@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { getUsersBySearchQuery } from "@/apis";
-import { debounce } from "@/utils";
 import { SearchedUser } from "@/types";
 
 export const useSearchUserQuery = (searchQuery: string) => {
@@ -27,11 +26,9 @@ export const useSearchUserQuery = (searchQuery: string) => {
     }
   };
 
-  const debouncedSearchUser = useCallback(debounce(searchUser, 300), []);
-
   useEffect(() => {
-    debouncedSearchUser(searchQuery);
-  }, [searchQuery, debouncedSearchUser]);
+    searchUser(searchQuery);
+  }, [searchQuery]);
 
   return {
     isPending,
