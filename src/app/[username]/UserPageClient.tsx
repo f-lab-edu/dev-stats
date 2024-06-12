@@ -1,8 +1,14 @@
 import { Suspense } from "react";
 
-import { LanguagesType, OrganizationType, ProfileType } from "@/types";
+import {
+  ContributionsType,
+  LanguagesType,
+  OrganizationType,
+  ProfileType,
+} from "@/types";
 
 import {
+  Contribution,
   Language,
   LanguageSkeleton,
   Organization,
@@ -16,12 +22,14 @@ type UserPageClientProps = {
   profileData: ProfileType | null;
   languagesData: LanguagesType | null;
   organizations: OrganizationType[] | null;
+  contributions: ContributionsType[] | null;
 };
 
 export const UserPageClient = ({
   profileData,
   languagesData,
   organizations,
+  contributions,
 }: UserPageClientProps) => {
   return (
     <div className="mt-4 w-full max-w-[1100px]">
@@ -54,21 +62,24 @@ export const UserPageClient = ({
 
         <div
           className="
-           flex flex-col gap-3
-           lg:grid lg:col-span-7 lg:row-span-6
+            flex flex-col gap-3
+            lg:col-span-7 lg:row-span-6
           "
         >
-          <Section title="Summary" className="col-span-9 row-span-1">
-            프로필
-          </Section>
+          <div className="grid grid-cols-9 grid-rows-4 gap-3 h-full w-full">
+            <Section title="Summary" className="col-span-9 row-span-1">
+              프로필
+            </Section>
 
-          <Section title="Contribution" className="col-span-6 row-span-4">
-            프로필
-          </Section>
+            <Contribution
+              className="col-span-6 row-span-4"
+              contributionsData={contributions}
+            />
 
-          <Section title="Repositories" className="col-span-3 row-span-4">
-            프로필
-          </Section>
+            <Section title="Repositories" className="col-span-3 row-span-4">
+              프로필
+            </Section>
+          </div>
         </div>
 
         <Section className="col-span-10 row-span-2">프로필</Section>
