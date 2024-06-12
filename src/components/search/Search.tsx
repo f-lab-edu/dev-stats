@@ -1,12 +1,14 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { cn } from "@/utils";
+import { cn, debounce } from "@/utils";
 
 import { SearchBar } from "./SearchBar";
 import { SearchPanel } from "./SearchPanel";
+
+const TIME_OUT = 300;
 
 type SearchProps = {
   size?: "sm" | "lg";
@@ -15,9 +17,26 @@ type SearchProps = {
 export const Search = ({ size = "sm" }: SearchProps) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((query: string) => {
+        setDebouncedQuery(query);
+      }, TIME_OUT),
+    [],
+  );
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
 
   const handleSearchQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedSearch(e.target.value);
   };
 
   const handleSearchButtonClick = () => {
@@ -48,12 +67,13 @@ export const Search = ({ size = "sm" }: SearchProps) => {
           maxWidthClassName[size],
         ])}
       />
-      <SearchPanel
-        size={size}
-        isVisible={searchQuery.length > 2}
-        searchQuery={searchQuery}
-        className={maxWidthClassName[size]}
-      />
+      {searchQuery.length > 2 && (
+        <SearchPanel
+          size={size}
+          searchQuery={debouncedQuery}
+          className={maxWidthClassName[size]}
+        />
+      )}
     </>
   );
 };
