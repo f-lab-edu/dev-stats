@@ -32,12 +32,12 @@ export const UserPageClient = ({
   contributions,
 }: UserPageClientProps) => {
   return (
-    <div className="mt-4 w-full max-w-[1100px]">
+    <div className="mt-4 w-full max-w-[1200px]">
       <div
         className="
           flex flex-col px-5 gap-3 w-full
-          lg:w-[1000px] lg:h-[900px]
-          lg:grid lg:grid-cols-10 lg:grid-rows-9
+          lg:max-w-[1200px] lg:h-[900px]
+          lg:grid lg:grid-cols-12 lg:grid-rows-9
         "
       >
         <div
@@ -63,7 +63,7 @@ export const UserPageClient = ({
         <div
           className="
             flex flex-col gap-3
-            lg:col-span-7 lg:row-span-6
+            lg:col-span-9 lg:row-span-6
           "
         >
           <div className="grid grid-cols-9 grid-rows-4 gap-3 h-full w-full">
@@ -82,7 +82,7 @@ export const UserPageClient = ({
           </div>
         </div>
 
-        <Section className="col-span-10 row-span-2">프로필</Section>
+        <Section className="col-span-12 row-span-2">프로필</Section>
       </div>
     </div>
   );
