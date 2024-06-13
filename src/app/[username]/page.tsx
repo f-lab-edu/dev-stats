@@ -10,7 +10,7 @@ type UserPageProps = {
 
 const UserPage = async ({ params }: UserPageProps) => {
   const username = params.username;
-  const { profile, languages, organizations, contributions } =
+  const { profile, languages, organizations, contributedRepos } =
     await getDashboardData(username);
 
   return (
@@ -18,7 +18,7 @@ const UserPage = async ({ params }: UserPageProps) => {
       profileData={profile}
       languagesData={languages}
       organizations={organizations}
-      contributions={contributions}
+      contributedRepos={contributedRepos}
     />
   );
 };
