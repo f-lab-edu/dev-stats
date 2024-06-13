@@ -46,14 +46,16 @@ export type PullRequestNode = {
   title: string;
   url: string;
   createdAt: string;
-  author?: {
-    login: string;
-  };
 };
 
-export type ContributionsType = {
+export type ContributedRepoType = {
   repository: string;
   stargazerCount: number;
   avatarUrl: string;
-  pullRequests: PullRequestNode[];
+};
+
+export type ContributionType = {
+  html_url: string;
+  title: string;
+  state: string;
 };
