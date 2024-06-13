@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import {
-  ContributionsType,
+  ContributedRepoType,
   LanguagesType,
   OrganizationType,
   ProfileType,
@@ -22,14 +22,14 @@ type UserPageClientProps = {
   profileData: ProfileType | null;
   languagesData: LanguagesType | null;
   organizations: OrganizationType[] | null;
-  contributions: ContributionsType[] | null;
+  contributedRepos: ContributedRepoType[] | null;
 };
 
 export const UserPageClient = ({
   profileData,
   languagesData,
   organizations,
-  contributions,
+  contributedRepos,
 }: UserPageClientProps) => {
   return (
     <div className="mt-4 w-full max-w-[1200px]">
@@ -73,7 +73,7 @@ export const UserPageClient = ({
 
             <Contribution
               className="col-span-6 row-span-4"
-              contributionsData={contributions}
+              contributedRepoData={contributedRepos}
             />
 
             <Section title="Repositories" className="col-span-3 row-span-4">
