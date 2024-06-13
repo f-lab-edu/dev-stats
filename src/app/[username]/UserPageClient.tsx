@@ -1,8 +1,14 @@
 import { Suspense } from "react";
 
-import { LanguagesType, OrganizationType, ProfileType } from "@/types";
+import {
+  ContributedRepoType,
+  LanguagesType,
+  OrganizationType,
+  ProfileType,
+} from "@/types";
 
 import {
+  Contribution,
   Language,
   LanguageSkeleton,
   Organization,
@@ -16,20 +22,22 @@ type UserPageClientProps = {
   profileData: ProfileType | null;
   languagesData: LanguagesType | null;
   organizations: OrganizationType[] | null;
+  contributedRepos: ContributedRepoType[] | null;
 };
 
 export const UserPageClient = ({
   profileData,
   languagesData,
   organizations,
+  contributedRepos,
 }: UserPageClientProps) => {
   return (
-    <div className="mt-4 w-full max-w-[1100px]">
+    <div className="mt-4 w-full max-w-[1200px]">
       <div
         className="
           flex flex-col px-5 gap-3 w-full
-          lg:w-[1000px] lg:h-[900px]
-          lg:grid lg:grid-cols-10 lg:grid-rows-9
+          lg:max-w-[1200px] lg:h-[900px]
+          lg:grid lg:grid-cols-12 lg:grid-rows-9
         "
       >
         <div
@@ -54,24 +62,27 @@ export const UserPageClient = ({
 
         <div
           className="
-           flex flex-col gap-3
-           lg:grid lg:col-span-7 lg:row-span-6
+            flex flex-col gap-3
+            lg:col-span-9 lg:row-span-6
           "
         >
-          <Section title="Summary" className="col-span-9 row-span-1">
-            프로필
-          </Section>
+          <div className="grid grid-cols-9 grid-rows-4 gap-3 h-full w-full">
+            <Section title="Summary" className="col-span-9 row-span-1">
+              프로필
+            </Section>
 
-          <Section title="Contribution" className="col-span-6 row-span-4">
-            프로필
-          </Section>
+            <Contribution
+              className="col-span-6 row-span-4"
+              contributedRepoData={contributedRepos}
+            />
 
-          <Section title="Repositories" className="col-span-3 row-span-4">
-            프로필
-          </Section>
+            <Section title="Repositories" className="col-span-3 row-span-4">
+              프로필
+            </Section>
+          </div>
         </div>
 
-        <Section className="col-span-10 row-span-2">프로필</Section>
+        <Section className="col-span-12 row-span-2">프로필</Section>
       </div>
     </div>
   );

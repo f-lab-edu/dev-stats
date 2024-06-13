@@ -7,7 +7,7 @@ export const Header = () => {
     <div className="flex justify-center items-center w-full">
       <div
         className="
-          flex items-center w-full max-w-[1100px] h-24
+          flex items-center w-full max-w-[1200px] h-24
           justify-between relative px-5
         "
       >

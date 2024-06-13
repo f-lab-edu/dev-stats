@@ -1,5 +1,6 @@
 export * from "./fetchGithub";
 export * from "./getDashboardData";
+export * from "./getUserContributions";
 export * from "./getUserLanguages";
 export * from "./getUserOrganizations";
 export * from "./getUserProfile";

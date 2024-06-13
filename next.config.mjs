@@ -5,7 +5,11 @@ const nextConfig = {
     GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
   },
   images: {
-    domains: ["avatars.githubusercontent.com"],
+    domains: [
+      "avatars.githubusercontent.com",
+      "repository-images.githubusercontent.com",
+      "opengraph.githubassets.com",
+    ],
   },
 };
 
