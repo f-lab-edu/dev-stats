@@ -1,15 +1,15 @@
 "use client";
 
-import { HTMLAttributes, useEffect, useState } from "react";
+import { HTMLAttributes } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 
-import { ContributedRepoType, ContributionType } from "@/types";
-import { cn } from "@/utils";
-import { getUserPullRequests } from "@/apis";
+import { ContributedRepoType } from "@/types";
 
 import { Section } from "../common";
+import { usePathname } from "next/navigation";
+
+const GITHUB_URL = "https://www.github.com/";
 
 type ContributionProps = {
   contributedRepoData: ContributedRepoType[] | null;
@@ -19,83 +19,55 @@ export const Contribution = ({
   contributedRepoData,
   ...props
 }: ContributionProps) => {
-  const username = useParams().username as string;
-  const [selectedRepo, setSelectedRepo] = useState<ContributedRepoType | null>(
-    contributedRepoData?.[0] || null,
-  );
-  const [contributions, setContributions] = useState<ContributionType[]>([]);
+  const username = usePathname().split("/")[1];
 
-  const handleSelectRepo = async (repo: ContributedRepoType) => {
-    setSelectedRepo(repo);
+  const formatStartCount = (count: number) => {
+    const prefix = "(★";
+    const suffix = ")";
+
+    if (count > 1000) {
+      return prefix + (count / 1000).toFixed(1) + "k" + suffix;
+    }
+
+    if (count === 0) return " ";
+
+    return prefix + count + suffix;
   };
-
-  useEffect(() => {
-    const updateContributions = async () => {
-      if (selectedRepo) {
-        const repoOwner = selectedRepo.repository.split("/")[0];
-        const repoName = selectedRepo.repository.split("/")[1];
-        const contributions = await getUserPullRequests(
-          username,
-          repoOwner,
-          repoName,
-        );
-        setContributions(contributions);
-      }
-    };
-    updateContributions();
-  }, [selectedRepo, username]);
 
   return (
     <Section title="Contribution" {...props}>
-      <div className="flex flex-wrap mt-1 gap-2">
-        {contributedRepoData?.slice(0, 10).map((repo, index) => (
-          <div
+      <div className="flex-1 grid grid-cols-3 grid-rows-3 mt-1 gap-2">
+        {contributedRepoData?.slice(0, 9).map((repo, index) => (
+          <Link
+            href={`${GITHUB_URL + repo.repository}/pulls?q=author%3A${username}+is%3Apr+is%3Aclosed`}
+            target="_blank"
+            rel="noopener noreferrer"
             key={index}
-            onClick={() => handleSelectRepo(repo)}
-            className={cn(
-              `
-            flex flex-1 justify-center gap-2 overflow-auto px-2 pt-3 pb-1
-            min-w-[100px] rounded-lg hover:bg-blue-100/90 cursor-pointer
-            `,
-              { "bg-blue-100": selectedRepo?.repository === repo.repository },
-            )}
+            className="
+              flex justify-center gap-2 overflow-auto px-2 pt-3 pb-1
+              min-w-[100px] rounded-lg hover:bg-blue-100/90 cursor-pointer
+            "
           >
-            <div className="flex flex-col gap-3 items-center">
+            <div className="flex flex-col gap-3 items-center justify-center">
               <Image
                 src={repo.avatarUrl}
                 alt={`${repo.repository} image`}
-                width={36}
-                height={36}
+                width={50}
+                height={50}
                 className="rounded-full max-w-9 max-y-9 flex-shrink bg-white"
               />
               <div className="flex flex-col gap-[2px] text-center">
-                <h2 className="text-md font-semibold leading-4">
+                <h2 className="text-md font-medium leading-4">
                   {repo.repository.split("/")[1]}{" "}
                 </h2>
-                <span className="text-[12px] text-gray-400">
-                  (★{(repo.stargazerCount / 1000).toFixed(1)}k)
+                <span className="text-[12px] h-[18px] text-gray-400">
+                  {formatStartCount(repo.stargazerCount)}
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
-      <ul className="flex-1 px-3 py-3">
-        {contributions.map((contribution: ContributionType, index) => (
-          <li key={index}>
-            <Link
-              href={contribution.html_url}
-              className="flex items-start gap-2"
-              target="_blank"
-            >
-              <div className="mt-[6px] w-2 h-2 rounded-full bg-blue-500" />
-              <span className="text-md hover:underline leading-5">
-                {contribution.title} {"  "}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
     </Section>
   );
 };
