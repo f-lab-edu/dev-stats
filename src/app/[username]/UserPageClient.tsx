@@ -72,11 +72,11 @@ export const UserPageClient = ({
             </Section>
 
             <Contribution
-              className="col-span-6 row-span-4"
+              className="col-span-5 row-span-4"
               contributedRepoData={contributedRepos}
             />
 
-            <Section title="Repositories" className="col-span-3 row-span-4">
+            <Section title="Repositories" className="col-span-4 row-span-4">
               프로필
             </Section>
           </div>
