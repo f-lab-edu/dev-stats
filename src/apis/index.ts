@@ -4,6 +4,6 @@ export * from "./getUserContributions";
 export * from "./getUserLanguages";
 export * from "./getUserOrganizations";
 export * from "./getUserProfile";
-export * from "./getUserRepos";
+export * from "./getUserPinnedRepos";
 export * from "./getUsersBySearchQuery";
 export * from "./utils";

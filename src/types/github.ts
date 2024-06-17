@@ -59,3 +59,11 @@ export type ContributionType = {
   title: string;
   state: string;
 };
+
+export type PinnedRepoType = {
+  name: string;
+  description: string;
+  url: string;
+  forkCount: number;
+  stargazerCount: number;
+};

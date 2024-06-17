@@ -8,8 +8,11 @@ import { ContributedRepoType } from "@/types";
 
 import { Section } from "../common";
 import { usePathname } from "next/navigation";
+import { formatCount } from "@/utils";
 
 const GITHUB_URL = "https://www.github.com/";
+const PREFIX = "(★";
+const SUFFIX = ")";
 
 type ContributionProps = {
   contributedRepoData: ContributedRepoType[] | null;
@@ -21,19 +24,6 @@ export const Contribution = ({
 }: ContributionProps) => {
   const username = usePathname().split("/")[1];
 
-  const formatStartCount = (count: number) => {
-    const prefix = "(★";
-    const suffix = ")";
-
-    if (count > 1000) {
-      return prefix + (count / 1000).toFixed(1) + "k" + suffix;
-    }
-
-    if (count === 0) return " ";
-
-    return prefix + count + suffix;
-  };
-
   return (
     <Section title="Contribution" {...props}>
       <div className="flex-1 grid grid-cols-3 grid-rows-3 mt-1 gap-2">
@@ -44,7 +34,7 @@ export const Contribution = ({
             rel="noopener noreferrer"
             key={index}
             className="
-              flex justify-center gap-2 overflow-auto px-2 pt-3 pb-1
+              flex justify-center gap-2 px-2 pt-3 pb-1
               min-w-[100px] rounded-lg hover:bg-blue-100/90 cursor-pointer
             "
           >
@@ -61,7 +51,7 @@ export const Contribution = ({
                   {repo.repository.split("/")[1]}{" "}
                 </h2>
                 <span className="text-[12px] h-[18px] text-gray-400">
-                  {formatStartCount(repo.stargazerCount)}
+                  {formatCount(repo.stargazerCount, PREFIX, SUFFIX)}
                 </span>
               </div>
             </div>

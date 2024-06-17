@@ -5,25 +5,29 @@ import {
   ContributedRepoType,
   LanguagesType,
   OrganizationType,
+  PinnedRepoType,
   ProfileType,
 } from "@/types";
 import { getUseContributedRepos } from "./getUserContributions";
+import { getUserPinnedRepos } from "./getUserPinnedRepos";
 
-type DashboardData = {
+export type DashboardDataType = {
   profile: ProfileType | null;
   languages: LanguagesType | null;
   organizations: OrganizationType[] | null;
   contributedRepos: ContributedRepoType[] | null;
+  pinnedRepos: PinnedRepoType[] | null;
 };
 
 export const getDashboardData = async (
   username: string,
-): Promise<DashboardData> => {
+): Promise<DashboardDataType> => {
   const promises = {
     profile: getUserProfile(username),
     languages: getUserLanguages(username),
     organizations: getUserOrganizations(username),
     contributedRepos: getUseContributedRepos(username),
+    pinnedRepos: getUserPinnedRepos(username),
   };
 
   const response = await Promise.allSettled(Object.values(promises));
@@ -36,7 +40,7 @@ export const getDashboardData = async (
       acc[key as keyof typeof promises] = null;
     }
     return acc;
-  }, {} as DashboardData);
+  }, {} as DashboardDataType);
 
   return data;
 };
