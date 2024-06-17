@@ -1,36 +1,25 @@
 import { Suspense } from "react";
 
 import {
-  ContributedRepoType,
-  LanguagesType,
-  OrganizationType,
-  ProfileType,
-} from "@/types";
-
-import {
   Contribution,
   Language,
   LanguageSkeleton,
   Organization,
   OrganizationSkeleton,
+  PinnedRepositories,
   Profile,
   ProfileSkeleton,
   Section,
 } from "@/components";
-
-type UserPageClientProps = {
-  profileData: ProfileType | null;
-  languagesData: LanguagesType | null;
-  organizations: OrganizationType[] | null;
-  contributedRepos: ContributedRepoType[] | null;
-};
+import { DashboardDataType } from "@/apis";
 
 export const UserPageClient = ({
-  profileData,
-  languagesData,
+  profile,
+  languages,
   organizations,
   contributedRepos,
-}: UserPageClientProps) => {
+  pinnedRepos,
+}: DashboardDataType) => {
   return (
     <div className="mt-4 w-full max-w-[1200px]">
       <div
@@ -47,10 +36,10 @@ export const UserPageClient = ({
           "
         >
           <Suspense fallback={<ProfileSkeleton className="row-span-8" />}>
-            <Profile profileData={profileData} className="row-span-8" />
+            <Profile profileData={profile} className="row-span-8" />
           </Suspense>
           <Suspense fallback={<LanguageSkeleton className="row-span-2" />}>
-            <Language languageData={languagesData} className="row-span-2" />
+            <Language languageData={languages} className="row-span-2" />
           </Suspense>
           <Suspense fallback={<OrganizationSkeleton className="row-span-1" />}>
             <Organization
@@ -66,7 +55,12 @@ export const UserPageClient = ({
             lg:col-span-9 lg:row-span-6
           "
         >
-          <div className="grid grid-cols-9 grid-rows-4 gap-3 h-full w-full">
+          <div
+            className="
+              flex flex-col gap-3 h-full w-full
+              lg:grid lg:grid-cols-9 lg:grid-rows-4 
+            "
+          >
             <Section title="Summary" className="col-span-9 row-span-1">
               프로필
             </Section>
@@ -76,9 +70,10 @@ export const UserPageClient = ({
               contributedRepoData={contributedRepos}
             />
 
-            <Section title="Repositories" className="col-span-4 row-span-4">
-              프로필
-            </Section>
+            <PinnedRepositories
+              pinnedReposData={pinnedRepos}
+              className="col-span-4 row-span-4"
+            />
           </div>
         </div>
 
