@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 
 import { getUsersBySearchQuery } from "@/apis";
 import { SearchedUser } from "@/types";
@@ -7,32 +7,44 @@ export const useSearchUserQuery = (searchQuery: string) => {
   const [isPending, startTransition] = useTransition();
   const [searchResult, setSearchResult] = useState<SearchedUser[] | null>(null);
   const [error, setError] = useState<unknown>(null);
+  const previousQuery = useRef<string | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    const searchUser = async (searchQuery: string) => {
-      if (searchQuery.length < 3) {
-        setSearchResult(null);
-        return;
-      }
-
+    const searchUser = async (query: string, signal: AbortSignal) => {
       try {
-        const response = await getUsersBySearchQuery(searchQuery, { signal });
-
+        const response = await getUsersBySearchQuery(query, { signal });
         startTransition(() => {
           setSearchResult(response.items.slice(0, 5));
         });
-      } catch (error: unknown) {
-        setError(error);
+      } catch (err: unknown) {
+        if (err instanceof Error && err.name !== "AbortError") {
+          setError(err);
+        }
       }
     };
 
-    searchUser(searchQuery);
+    if (searchQuery.length < 3) {
+      setSearchResult(null);
+      return;
+    }
+
+    if (previousQuery.current !== searchQuery) {
+      previousQuery.current = searchQuery;
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+
+      searchUser(searchQuery, controller.signal);
+    }
 
     return () => {
-      controller.abort();
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
     };
   }, [searchQuery]);
 
