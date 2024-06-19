@@ -21,6 +21,7 @@ const UserPage = async ({ params }: UserPageProps) => {
 
   return (
     <UserPageClient
+      username={username}
       profile={profile}
       languages={languages}
       organizations={organizations}
