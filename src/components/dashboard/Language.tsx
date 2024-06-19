@@ -1,28 +1,23 @@
-import { HTMLAttributes } from "react";
-
 import { LanguagesType } from "@/types";
 import { LANGUAGE_COLOR } from "@/data/languageColor";
 import { cn } from "@/utils";
 
-import { Section } from "../common";
 import { BarChart } from "../chart";
 
 type LanguageProps = {
   languageData: LanguagesType | null;
-} & HTMLAttributes<HTMLElement>;
+};
 
-export const Language = ({ languageData, ...props }: LanguageProps) => {
+export const Language = ({ languageData }: LanguageProps) => {
   if (!languageData) {
-    throw new Error("Language data is not provided");
+    throw new Error("Failed to get Languages data.");
   }
 
   return (
-    <Section title="Languages" {...props}>
-      <div className="flex flex-col gap-4">
-        <BarChart data={languageData} colorObject={LANGUAGE_COLOR} />
-        <LanguageList languageData={languageData} />
-      </div>
-    </Section>
+    <div className="flex flex-col gap-4">
+      <BarChart data={languageData} colorObject={LANGUAGE_COLOR} />
+      <LanguageList languageData={languageData} />
+    </div>
   );
 };
 
@@ -46,21 +41,19 @@ const LanguageList = ({ languageData }: { languageData: LanguagesType }) => {
   );
 };
 
-export const LanguageSkeleton = (props: HTMLAttributes<HTMLElement>) => {
+export const LanguageSkeleton = () => {
   return (
-    <Section title="Languages" {...props}>
-      <div className="flex flex-col gap-4">
-        <div className="w-full h-3 skeleton" />
-        <ul className="flex flex-wrap gap-3 gap-y-[2px]">
-          {LANGUAGE_SKELETON_ARRAY.map((width, index) => (
-            <li key={index} className="flex items-center text-xs gap-1">
-              <div className={cn("skeleton h-2 w-2")} />
-              <div className={cn("skeleton h-3", width)} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Section>
+    <div className="flex flex-col gap-4">
+      <div className="w-full h-3 skeleton" />
+      <ul className="flex flex-wrap gap-3 gap-y-[2px]">
+        {LANGUAGE_SKELETON_ARRAY.map((width, index) => (
+          <li key={index} className="flex items-center text-xs gap-1">
+            <div className={cn("skeleton h-2 w-2")} />
+            <div className={cn("skeleton h-3", width)} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
