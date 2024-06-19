@@ -15,13 +15,16 @@ import {
 import { DashboardDataType } from "@/apis";
 
 export const UserPageClient = ({
+  username,
   profile,
   languages,
   organizations,
   contributedRepos,
   pinnedRepos,
   yearlyActivities,
-}: DashboardDataType) => {
+}: DashboardDataType & {
+  username: string;
+}) => {
   return (
     <div className="mt-4 w-full max-w-[1200px]">
       <div
@@ -74,7 +77,10 @@ export const UserPageClient = ({
 
             <Section title="Contribution" className="col-span-5 row-span-4">
               <AsyncBoundary>
-                <Contribution contributedRepoData={contributedRepos} />
+                <Contribution
+                  username={username}
+                  contributedRepoData={contributedRepos}
+                />
               </AsyncBoundary>
             </Section>
 
