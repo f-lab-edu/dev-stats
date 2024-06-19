@@ -1,15 +1,17 @@
 import { getUserProfile } from "./getUserProfile";
 import { getUserLanguages } from "./getUserLanguages";
 import { getUserOrganizations } from "./getUserOrganizations";
+import { getUseContributedRepos } from "./getUserContributions";
+import { getUserPinnedRepos } from "./getUserPinnedRepos";
+import { getYearlyActivities } from "./getYearlyActivities";
 import {
   ContributedRepoType,
   LanguagesType,
   OrganizationType,
   PinnedRepoType,
   ProfileType,
+  YearlyActivitiesType,
 } from "@/types";
-import { getUseContributedRepos } from "./getUserContributions";
-import { getUserPinnedRepos } from "./getUserPinnedRepos";
 
 export type DashboardDataType = {
   profile: ProfileType | null;
@@ -17,6 +19,7 @@ export type DashboardDataType = {
   organizations: OrganizationType[] | null;
   contributedRepos: ContributedRepoType[] | null;
   pinnedRepos: PinnedRepoType[] | null;
+  yearlyActivities: YearlyActivitiesType | null;
 };
 
 export const getDashboardData = async (
@@ -28,6 +31,7 @@ export const getDashboardData = async (
     organizations: getUserOrganizations(username),
     contributedRepos: getUseContributedRepos(username),
     pinnedRepos: getUserPinnedRepos(username),
+    yearlyActivities: getYearlyActivities(username),
   };
 
   const response = await Promise.allSettled(Object.values(promises));

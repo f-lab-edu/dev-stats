@@ -24,7 +24,7 @@ const YEARLY_ACTIVITY_QUERY = `
   }
 `;
 
-export const getYearlyActivity = async (username: string) => {
+export const getYearlyActivities = async (username: string) => {
   const result = await fetchGithub.post("/graphql", {
     query: YEARLY_ACTIVITY_QUERY,
     variables: {
