@@ -1,27 +1,45 @@
-import { Suspense } from "react";
-
 import {
-  Contribution,
+  Section,
+  AsyncBoundary,
   Profile,
   Language,
-  LanguageSkeleton,
   Organization,
-  OrganizationSkeleton,
+  Contribution,
   PinnedRepositories,
   YearlyActivities,
   ProfileSkeleton,
-  Section,
+  LanguageSkeleton,
+  OrganizationSkeleton,
+  YearyActivitiesSkeleton,
 } from "@/components";
 import { DashboardDataType } from "@/apis";
 
 export const UserPageClient = ({
+  username,
   profile,
   languages,
   organizations,
   contributedRepos,
   pinnedRepos,
   yearlyActivities,
-}: DashboardDataType) => {
+}: DashboardDataType & {
+  username: string;
+}) => {
+  const yearlyContributions = Object.values(yearlyActivities || {}).reduce(
+    (acc, value) => {
+      return acc + value.contributionCount;
+    },
+    0,
+  );
+
+  const getYearlyActivitiesTitle = () => {
+    if (!yearlyActivities) {
+      return "Yearly Activities";
+    }
+
+    return `Yearly Activities (${yearlyContributions})`;
+  };
+
   return (
     <div className="mt-4 w-full max-w-[1200px]">
       <div
@@ -37,18 +55,23 @@ export const UserPageClient = ({
             lg:grid lg:col-span-3 lg:row-span-6
           "
         >
-          <Suspense fallback={<ProfileSkeleton className="row-span-8" />}>
-            <Profile profileData={profile} className="row-span-8" />
-          </Suspense>
-          <Suspense fallback={<LanguageSkeleton className="row-span-2" />}>
-            <Language languageData={languages} className="row-span-2" />
-          </Suspense>
-          <Suspense fallback={<OrganizationSkeleton className="row-span-1" />}>
-            <Organization
-              oranizationsData={organizations}
-              className="row-span-1"
-            />
-          </Suspense>
+          <Section className="row-span-8">
+            <AsyncBoundary loadingFallback={<ProfileSkeleton />}>
+              <Profile profileData={profile} />
+            </AsyncBoundary>
+          </Section>
+
+          <Section title="Languages" className="row-span-2">
+            <AsyncBoundary loadingFallback={<LanguageSkeleton />}>
+              <Language languageData={languages} />
+            </AsyncBoundary>
+          </Section>
+
+          <Section title="Organizations" className="row-span-1">
+            <AsyncBoundary loadingFallback={<OrganizationSkeleton />}>
+              <Organization oranizationsData={organizations} />
+            </AsyncBoundary>
+          </Section>
         </div>
 
         <div
@@ -67,22 +90,34 @@ export const UserPageClient = ({
               프로필
             </Section>
 
-            <Contribution
-              className="col-span-5 row-span-4"
-              contributedRepoData={contributedRepos}
-            />
+            <Section title="Contribution" className="col-span-5 row-span-4">
+              <AsyncBoundary>
+                <Contribution
+                  username={username}
+                  contributedRepoData={contributedRepos}
+                />
+              </AsyncBoundary>
+            </Section>
 
-            <PinnedRepositories
-              pinnedReposData={pinnedRepos}
+            <Section
+              title="Pinned Repositories"
               className="col-span-4 row-span-4"
-            />
+            >
+              <AsyncBoundary>
+                <PinnedRepositories pinnedReposData={pinnedRepos} />
+              </AsyncBoundary>
+            </Section>
           </div>
         </div>
 
-        <YearlyActivities
-          yearlyAtivitiesData={yearlyActivities}
+        <Section
+          title={getYearlyActivitiesTitle()}
           className="col-span-12 row-span-3"
-        />
+        >
+          <AsyncBoundary loadingFallback={<YearyActivitiesSkeleton />}>
+            <YearlyActivities yearlyAtivitiesData={yearlyActivities} />
+          </AsyncBoundary>
+        </Section>
       </div>
     </div>
   );
