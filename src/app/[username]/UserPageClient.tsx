@@ -25,6 +25,21 @@ export const UserPageClient = ({
 }: DashboardDataType & {
   username: string;
 }) => {
+  const yearlyContributions = Object.values(yearlyActivities || {}).reduce(
+    (acc, value) => {
+      return acc + value.contributionCount;
+    },
+    0,
+  );
+
+  const getYearlyActivitiesTitle = () => {
+    if (!yearlyActivities) {
+      return "Yearly Activities";
+    }
+
+    return `Yearly Activities (${yearlyContributions})`;
+  };
+
   return (
     <div className="mt-4 w-full max-w-[1200px]">
       <div
@@ -95,7 +110,10 @@ export const UserPageClient = ({
           </div>
         </div>
 
-        <Section title="Yearly Activities" className="col-span-12 row-span-3">
+        <Section
+          title={getYearlyActivitiesTitle()}
+          className="col-span-12 row-span-3"
+        >
           <AsyncBoundary loadingFallback={<YearyActivitiesSkeleton />}>
             <YearlyActivities yearlyAtivitiesData={yearlyActivities} />
           </AsyncBoundary>
