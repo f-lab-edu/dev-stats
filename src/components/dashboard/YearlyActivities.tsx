@@ -1,6 +1,5 @@
 "use client";
 
-import { HTMLAttributes } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -23,8 +22,6 @@ import "chart.js/auto";
 
 import { YearlyActivitiesType } from "@/types";
 
-import { Section } from "../common";
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -37,23 +34,18 @@ ChartJS.register(
 
 type YearlyActivitiesProps = {
   yearlyAtivitiesData: YearlyActivitiesType | null;
-} & HTMLAttributes<HTMLElement>;
+};
 
 export const YearlyActivities = ({
   yearlyAtivitiesData,
-  ...props
 }: YearlyActivitiesProps) => {
   if (!yearlyAtivitiesData) {
-    throw new Error("Yearly Activities data is not provided");
+    throw new Error("Failed to get Yearly Activities data.");
   }
 
   const dateData = yearlyAtivitiesData.map(data => data.date);
   const contributionCountData = yearlyAtivitiesData.map(
     data => data.contributionCount,
-  );
-  const totalContributions = contributionCountData.reduce(
-    (acc, count) => acc + count,
-    0,
   );
 
   const chartData: ChartData<"line", number[], string> = {
@@ -75,15 +67,14 @@ export const YearlyActivities = ({
   ChartJS.register(CROSS_HAIR_PLUGIN);
 
   return (
-    <Section
-      title={`Yearly Activities (${totalContributions.toLocaleString()})`}
-      {...props}
-    >
-      <div className="relative w-full max-h-[220px]">
-        <Line options={CHART_OPTIONS} data={chartData} className="w-full" />
-      </div>
-    </Section>
+    <div className="relative w-full max-h-[220px]">
+      <Line options={CHART_OPTIONS} data={chartData} className="w-full" />
+    </div>
   );
+};
+
+export const YearyActivitiesSkeleton = () => {
+  return <div className="w-full h-[220px] bg-gray-200 animate-pulse" />;
 };
 
 const CROSS_HAIR_PLUGIN = {
