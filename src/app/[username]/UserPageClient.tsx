@@ -2,12 +2,13 @@ import { Suspense } from "react";
 
 import {
   Contribution,
+  Profile,
   Language,
   LanguageSkeleton,
   Organization,
   OrganizationSkeleton,
   PinnedRepositories,
-  Profile,
+  YearlyActivities,
   ProfileSkeleton,
   Section,
 } from "@/components";
@@ -19,6 +20,7 @@ export const UserPageClient = ({
   organizations,
   contributedRepos,
   pinnedRepos,
+  yearlyActivities,
 }: DashboardDataType) => {
   return (
     <div className="mt-4 w-full max-w-[1200px]">
@@ -77,7 +79,10 @@ export const UserPageClient = ({
           </div>
         </div>
 
-        <Section className="col-span-12 row-span-2">프로필</Section>
+        <YearlyActivities
+          yearlyAtivitiesData={yearlyActivities}
+          className="col-span-12 row-span-3"
+        />
       </div>
     </div>
   );
