@@ -10,8 +10,14 @@ type UserPageProps = {
 
 const UserPage = async ({ params }: UserPageProps) => {
   const username = params.username;
-  const { profile, languages, organizations, contributedRepos, pinnedRepos } =
-    await getDashboardData(username);
+  const {
+    profile,
+    languages,
+    organizations,
+    contributedRepos,
+    pinnedRepos,
+    yearlyActivities,
+  } = await getDashboardData(username);
 
   return (
     <UserPageClient
@@ -20,6 +26,7 @@ const UserPage = async ({ params }: UserPageProps) => {
       organizations={organizations}
       contributedRepos={contributedRepos}
       pinnedRepos={pinnedRepos}
+      yearlyActivities={yearlyActivities}
     />
   );
 };
