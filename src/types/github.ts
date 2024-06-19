@@ -67,3 +67,8 @@ export type PinnedRepoType = {
   forkCount: number;
   stargazerCount: number;
 };
+
+export type YearlyActivitiesType = {
+  date: string;
+  contributionCount: number;
+}[];
