@@ -3,6 +3,7 @@ const nextConfig = {
   env: {
     GITHUB_API_URL: process.env.GITHUB_API_URL,
     GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
   images: {
     domains: [
