@@ -6,8 +6,7 @@ export default function NotFound() {
   return (
     <div
       className="
-        h-screen w-full flex flex-col items-center 
-        justify-center gap-3
+        h-screen w-full flex-col-center gap-3
       "
       role="alert"
       aria-live="assertive"
