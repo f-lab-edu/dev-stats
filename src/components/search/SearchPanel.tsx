@@ -25,7 +25,7 @@ export const SearchPanel = ({
   const resultState = getAsyncState();
 
   function getAsyncState() {
-    const isNoResult = searchedUsers !== null && searchedUsers.length === 0;
+    const isNoResult = searchedUsers && searchedUsers.length === 0;
 
     if (isError) return "ERROR";
     if (isLoading) return "LOADING";
