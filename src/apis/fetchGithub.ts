@@ -12,4 +12,7 @@ export const fetchGithub = request.create({
   headers: {
     Authorization: `token ${GITHUB_ACCESS_TOKEN}`,
   },
+  next: {
+    revalidate: 60 * 60 * 24,
+  },
 });
