@@ -1,3 +1,5 @@
+"use client";
+
 import {
   forwardRef,
   Ref,
@@ -5,6 +7,7 @@ import {
   useRef,
   ChangeEvent,
   HTMLAttributes,
+  useImperativeHandle,
 } from "react";
 import Image from "next/image";
 import { cva } from "class-variance-authority";
@@ -15,7 +18,6 @@ type SearchBarProps = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;
-  onReset?: () => void;
   size?: "sm" | "lg";
 } & Omit<HTMLAttributes<HTMLInputElement>, "size" | "value" | "onChange">;
 
@@ -26,16 +28,18 @@ const SearchBar = forwardRef(
       value,
       onChange,
       onSearch,
-      onReset,
       size = "lg",
       ...props
     }: SearchBarProps,
     ref: Ref<HTMLInputElement>,
   ) => {
+    const internalRef = useRef<HTMLInputElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const isValueExist = value.length > 0;
 
     const activeState = isValueExist ? "active" : "inactive";
+
+    useImperativeHandle(ref, () => internalRef.current as HTMLInputElement);
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") {
@@ -46,7 +50,7 @@ const SearchBar = forwardRef(
 
     const handleReset = () => {
       onChange({ target: { value: "" } } as ChangeEvent<HTMLInputElement>);
-      onReset?.();
+      internalRef.current?.focus();
     };
 
     return (
@@ -61,16 +65,13 @@ const SearchBar = forwardRef(
           height={TYPE_ICON_SIZE[size]}
         />
         <input
-          ref={ref}
+          ref={internalRef}
           value={value}
           onChange={onChange}
           placeholder="Search for a user"
           aria-label="Search for a user"
           onKeyDown={handleKeyDown}
-          className="
-          w-full bg-transparent outline-none
-          placeholder-gray-400 flex-1
-          "
+          className={cn(InputVariants({ size }))}
           {...props}
         />
         <Image
@@ -102,14 +103,30 @@ const SearchBar = forwardRef(
 );
 
 const ContainerVariants = cva(
-  `flex bg-white pl-4 pr-2
+  `
+  flex bg-white pl-4 pr-2 border-[1px] border-blue-100 border-solid
   w-full gap-3 items-center
-  hover:shadow-md focus:shadow-md focus-within:shadow-md`,
+  hover:shadow-out hover:border-transparent
+  focus:shadow-out focus-within:shadow-out focus-within:border-transparent
+  `,
   {
     variants: {
       size: {
-        sm: "h-9 rounded-[18px]",
+        sm: "h-10 rounded-[18px]",
         lg: "h-12 rounded-[24px]",
+      },
+    },
+  },
+);
+
+const InputVariants = cva(
+  `w-full bg-transparent outline-none
+   placeholder-gray-400 flex-1`,
+  {
+    variants: {
+      size: {
+        sm: "text-[15px]",
+        lg: "text-[16px]",
       },
     },
   },
@@ -118,11 +135,12 @@ const ContainerVariants = cva(
 const ButtonVariants = cva(
   `flex items-center justify-center rounded-full
   transition-colors tarnsition-500
-  focus:outline-none focus:ring-2 focus:ring-blue-400`,
+  `,
   {
     variants: {
       activeState: {
-        active: "bg-blue-300 cursor-pointer",
+        active:
+          "bg-blue-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400",
         inactive: "bg-gray-300 cursor-default",
       },
       size: {
@@ -134,7 +152,7 @@ const ButtonVariants = cva(
 );
 
 const TYPE_ICON_SIZE = {
-  sm: 16,
+  sm: 20,
   lg: 24,
 };
 

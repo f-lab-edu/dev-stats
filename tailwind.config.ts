@@ -13,6 +13,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        out: "0 0 3px 2px rgba(189, 204, 254, 1)",
+      },
       keyframes: {
         spin: {
           from: { transform: "rotate(0deg)" },

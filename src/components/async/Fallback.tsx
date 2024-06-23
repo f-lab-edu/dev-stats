@@ -14,6 +14,8 @@ export const Fallback = ({ aysncState }: FallbackProps) => {
     ERROR: <p>An error occurred</p>,
   };
 
+  if (aysncState === "SUCCESS") return null;
+
   return (
     <div className="flex-row-center full-size">{FALLBACK[aysncState]}</div>
   );

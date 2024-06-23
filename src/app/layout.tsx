@@ -33,11 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-blue-100">
-      <body className={inter.className}>
-        <main className="flex flex-col items-center max-w-[1020px] mx-auto h-[100dvh]">
-          {children}
-        </main>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
