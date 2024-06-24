@@ -1,3 +1,4 @@
+import { UserNotFoundError } from "@/errors";
 import { getUserProfile } from "./getUserProfile";
 import { getUserLanguages } from "./getUserLanguages";
 import { getUserOrganizations } from "./getUserOrganizations";
@@ -46,5 +47,13 @@ export const getDashboardData = async (
     return acc;
   }, {} as DashboardDataType);
 
+  if (isAllDataNull(data)) {
+    throw new UserNotFoundError(username);
+  }
+
   return data;
+};
+
+const isAllDataNull = (data: DashboardDataType) => {
+  return Object.values(data).every(value => value === null);
 };
