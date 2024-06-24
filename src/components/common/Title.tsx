@@ -30,13 +30,21 @@ const TitleInner = <T extends HeadingTags = "h1">(
   ref: ForwardedRef<HTMLHeadingElement>,
 ) => {
   const Heading = as || "h1";
+  const ariaLevel = {
+    h1: 1,
+    h2: 2,
+    h3: 3,
+    h4: 4,
+    h5: 5,
+    h6: 6,
+  };
   return (
     <Heading
       ref={ref}
       role="heading"
       className={cn(TitleVariants({ size, align }), className)}
       {...props}
-      aria-level={Heading}
+      aria-level={ariaLevel[Heading]}
     >
       {children}
     </Heading>
