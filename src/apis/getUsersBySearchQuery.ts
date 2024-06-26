@@ -1,8 +1,5 @@
-import { fetchGithub } from "./fetchGithub";
+import { fetchGithubWithoutToken } from "./fetchGithub";
 
-export const getUsersBySearchQuery = async (
-  searchQuery: string,
-  options?: RequestInit,
-) => {
-  return await fetchGithub.get(`/search/users?q=${searchQuery}`, options);
+export const getUsersBySearchQuery = async (searchQuery: string) => {
+  return await fetchGithubWithoutToken.get(`/search/users?q=${searchQuery}`);
 };

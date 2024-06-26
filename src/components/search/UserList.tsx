@@ -56,7 +56,7 @@ const TextVariants = cva(``, {
   variants: {
     size: {
       sm: "text-[15px]",
-      lg: "text-[16px",
+      lg: "text-[16px]",
     },
   },
 });
