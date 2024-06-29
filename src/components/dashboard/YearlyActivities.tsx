@@ -171,7 +171,9 @@ const CHART_OPTIONS: ChartOptions<"line"> = {
     y: {
       ticks: {
         maxTicksLimit: 5,
+        stepSize: 10,
       },
+      min: 0,
       border: {
         display: false,
       },
