@@ -14,20 +14,24 @@ const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
 });
 
-export default async function summarize(username: string, messages: string) {
+export const getUserSummary = async (
+  username: string,
+  messages: string,
+): Promise<string> => {
   const cachedSummary = cache.get(username);
 
-  if (cachedSummary) {
+  if (cachedSummary && typeof cachedSummary === "string") {
     return cachedSummary;
   }
+
+  console.log(messages);
 
   const completion = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "system",
-        content:
-          "summarize in 300 characters or less who this user is, what languages they speak, and what types of projects they contribute to.",
+        content: `Summarize the user's GitHub profile in 500 characters or less, using "${username}" as the subject (not using he/she/they). Include programming languages used, open source in contributions key, and projects in pinned repos key.`,
       },
       { role: "user", content: messages },
     ],
@@ -42,4 +46,4 @@ export default async function summarize(username: string, messages: string) {
   cache.set(username, summary);
 
   return summary;
-}
+};
