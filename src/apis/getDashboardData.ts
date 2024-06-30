@@ -52,14 +52,29 @@ export const getDashboardData = async (
     return acc;
   }, {} as DashboardDataType);
 
-  const messageForSummary = JSON.stringify({
-    ...data.languages,
-    ...data.organizations,
-    ...data.contributedRepos,
-    ...data.pinnedRepos,
-  });
+  const messageForSummary = getMessageForSummary(data);
 
   data.messageForSummary = messageForSummary;
 
   return data;
+};
+
+const getMessageForSummary = (data: DashboardDataType) => {
+  const nickname = data.profile?.login || "";
+  const languages = Object.keys(data.languages || {}).join(", ");
+  const organizations = (data.organizations || [])
+    .map(org => org.login)
+    .join(", ");
+  const contributedRepos = (data.contributedRepos || [])
+    .map(repo => `${repo.repository} + ${repo.stargazerCount}`)
+    .join(", ");
+  const pinnedRepos = data.pinnedRepos || [];
+
+  return JSON.stringify({
+    nickname,
+    languages,
+    organizations,
+    contributedRepos,
+    pinnedRepos,
+  });
 };
