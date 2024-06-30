@@ -21,6 +21,7 @@ const UserPage = async ({ params }: UserPageProps) => {
       contributedRepos,
       pinnedRepos,
       yearlyActivities,
+      messageForSummary,
     } = await getDashboardData(username);
 
     return (
@@ -32,6 +33,7 @@ const UserPage = async ({ params }: UserPageProps) => {
         contributedRepos={contributedRepos}
         pinnedRepos={pinnedRepos}
         yearlyActivities={yearlyActivities}
+        messageForSummary={messageForSummary}
       />
     );
   } catch (error) {

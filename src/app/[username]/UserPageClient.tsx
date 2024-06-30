@@ -11,6 +11,7 @@ import {
   LanguageSkeleton,
   OrganizationSkeleton,
   YearyActivitiesSkeleton,
+  Summary,
 } from "@/components";
 import { DashboardDataType } from "@/apis";
 
@@ -22,6 +23,7 @@ export const UserPageClient = ({
   contributedRepos,
   pinnedRepos,
   yearlyActivities,
+  messageForSummary,
 }: DashboardDataType & {
   username: string;
 }) => {
@@ -87,7 +89,12 @@ export const UserPageClient = ({
             "
           >
             <Section title="Summary" className="col-span-9 row-span-1">
-              프로필
+              <AsyncBoundary>
+                <Summary
+                  username={username}
+                  messageForSummary={messageForSummary}
+                />
+              </AsyncBoundary>
             </Section>
 
             <Section title="Contribution" className="col-span-5 row-span-4">

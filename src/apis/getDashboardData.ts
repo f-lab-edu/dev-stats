@@ -21,6 +21,7 @@ export type DashboardDataType = {
   contributedRepos: ContributedRepoType[] | null;
   pinnedRepos: PinnedRepoType[] | null;
   yearlyActivities: YearlyActivitiesType | null;
+  messageForSummary: string;
 };
 
 export const getDashboardData = async (
@@ -42,18 +43,38 @@ export const getDashboardData = async (
     if (result.status === "fulfilled") {
       acc[key as keyof typeof promises] = result.value;
     } else {
+      if (result.reason.message === "Not Found") {
+        throw new UserNotFoundError(username);
+      }
+
       acc[key as keyof typeof promises] = null;
     }
     return acc;
   }, {} as DashboardDataType);
 
-  if (isAllDataNull(data)) {
-    throw new UserNotFoundError(username);
-  }
+  const messageForSummary = getMessageForSummary(data);
+
+  data.messageForSummary = messageForSummary;
 
   return data;
 };
 
-const isAllDataNull = (data: DashboardDataType) => {
-  return Object.values(data).every(value => value === null);
+const getMessageForSummary = (data: DashboardDataType) => {
+  const nickname = data.profile?.login || "";
+  const languages = Object.keys(data.languages || {}).join(", ");
+  const organizations = (data.organizations || [])
+    .map(org => org.login)
+    .join(", ");
+  const contributedRepos = (data.contributedRepos || [])
+    .map(repo => `${repo.repository} + ${repo.stargazerCount}`)
+    .join(", ");
+  const pinnedRepos = data.pinnedRepos || [];
+
+  return JSON.stringify({
+    nickname,
+    languages,
+    organizations,
+    contributedRepos,
+    pinnedRepos,
+  });
 };
