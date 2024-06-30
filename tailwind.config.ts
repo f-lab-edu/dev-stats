@@ -26,6 +26,9 @@ const config: Config = {
         spin: "spin 1s linear infinite",
       },
     },
+    space: {
+      screenHeightWitoutHeader: "calc(100dvh - 96px)",
+    },
   },
   plugins: [],
 };

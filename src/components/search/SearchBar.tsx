@@ -135,11 +135,12 @@ const InputVariants = cva(
 const ButtonVariants = cva(
   `flex items-center justify-center rounded-full
   transition-colors tarnsition-500
-  focus:outline-none focus:ring-2 focus:ring-blue-400`,
+  `,
   {
     variants: {
       activeState: {
-        active: "bg-blue-300 cursor-pointer",
+        active:
+          "bg-blue-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400",
         inactive: "bg-gray-300 cursor-default",
       },
       size: {

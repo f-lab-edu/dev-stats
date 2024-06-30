@@ -25,7 +25,7 @@ export const SearchPanel = ({
   const resultState = getAsyncState();
 
   function getAsyncState() {
-    const isNoResult = searchedUsers !== null && searchedUsers.length === 0;
+    const isNoResult = searchedUsers && searchedUsers.length === 0;
 
     if (isError) return "ERROR";
     if (isLoading) return "LOADING";
@@ -36,7 +36,7 @@ export const SearchPanel = ({
   return (
     <div className={cn([ContainerVariants({ size }), className])} {...props}>
       <div className={cn(ShadowCoverVariants({ size }))} />
-      <hr className="relative mx-4 h-[1px]x bg-blue-100 z-20" />
+      <hr className="relative mx-4 h-[1px]x bg-blue-100" />
       {searchedUsers && searchedUsers.length > 0 ? (
         <SearchedUserList userList={searchedUsers} size={size} />
       ) : (
@@ -53,14 +53,14 @@ const ContainerVariants = cva(
   {
     variants: {
       size: {
-        sm: "top-9 rounded-b-[18px] h-[178px]",
-        lg: "top-12 rounded-b-[24px] h-[185px]",
+        sm: "top-[39px] rounded-b-[18px] h-[178px]",
+        lg: "top-[51px] rounded-b-[24px] h-[185px]",
       },
     },
   },
 );
 
-const ShadowCoverVariants = cva(`absolute w-full h-4 bg-white`, {
+const ShadowCoverVariants = cva(`absolute w-full h-4 bg-white z-[-1]`, {
   variants: {
     size: {
       sm: "top-[-4px]",

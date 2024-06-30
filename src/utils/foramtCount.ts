@@ -3,7 +3,7 @@ export const formatCount = (
   prefix: string = "",
   suffix: string = "",
 ) => {
-  if (count > 1000) {
+  if (count >= 1000) {
     return prefix + (count / 1000).toFixed(1) + "k" + suffix;
   }
 

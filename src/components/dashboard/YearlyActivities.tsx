@@ -56,7 +56,7 @@ export const YearlyActivities = ({
         data: contributionCountData,
         fill: true,
         borderColor: "rgb(189, 204, 254)",
-        backgroundColor: "rgba(189, 204, 254, 0.3)",
+        backgroundColor: "rgba(219, 234, 254,0.7)",
         tension: 0.1,
         pointRadius: 1,
         pointHoverRadius: 5,
@@ -146,7 +146,7 @@ const CHART_OPTIONS: ChartOptions<"line"> = {
         maxTicksLimit: 12,
         callback: function (value, index, values) {
           const dateLabel = this.getLabelForValue(value as number);
-          const currentYear = dateLabel.split("-")[0];
+          const currentYear = dateLabel.split("-")[0].slice(2);
           const currentMonth = dateLabel.split("-")[1];
           const isLastLabel = index === values.length - 1;
 
@@ -160,11 +160,22 @@ const CHART_OPTIONS: ChartOptions<"line"> = {
             return "";
           }
         },
+        font: {
+          size: 14,
+        },
+      },
+      border: {
+        width: 3,
       },
     },
     y: {
       ticks: {
         maxTicksLimit: 5,
+        stepSize: 10,
+      },
+      min: 0,
+      border: {
+        display: false,
       },
     },
   },
