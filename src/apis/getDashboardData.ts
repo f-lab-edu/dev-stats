@@ -42,18 +42,14 @@ export const getDashboardData = async (
     if (result.status === "fulfilled") {
       acc[key as keyof typeof promises] = result.value;
     } else {
+      if (result.reason.message === "Not Found") {
+        throw new UserNotFoundError(username);
+      }
+
       acc[key as keyof typeof promises] = null;
     }
     return acc;
   }, {} as DashboardDataType);
 
-  if (isAllDataNull(data)) {
-    throw new UserNotFoundError(username);
-  }
-
   return data;
-};
-
-const isAllDataNull = (data: DashboardDataType) => {
-  return Object.values(data).every(value => value === null);
 };
