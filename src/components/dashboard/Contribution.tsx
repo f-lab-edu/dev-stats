@@ -31,7 +31,7 @@ export const Contribution = ({
           key={index}
           className="
               flex justify-center gap-2 px-2 pt-3 pb-1
-              min-w-[100px] rounded-lg hover:bg-blue-100/90 cursor-pointer
+              min-w-[100px] rounded-lg hover:bg-gray-200/90 cursor-pointer
             "
         >
           <div className="flex flex-col gap-3 items-center justify-center">

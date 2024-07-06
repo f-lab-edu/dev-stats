@@ -16,7 +16,7 @@ export const Logo = ({ size = "sm", href = "/", ...props }: LogoProps) => {
   );
 };
 
-const LogoVariants = cva(`font-semibold text-blue-500`, {
+const LogoVariants = cva(`font-semibold text-gray-700`, {
   variants: {
     size: {
       sm: "text-3xl",

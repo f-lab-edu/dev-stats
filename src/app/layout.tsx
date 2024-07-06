@@ -32,7 +32,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-blue-100">
+    <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   );

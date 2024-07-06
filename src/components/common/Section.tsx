@@ -18,14 +18,15 @@ export const Section = ({
     <section
       className={cn(
         `
-          px-4 py-3 rounded-xl border border-gray-50 border-solid
-          flex flex-col gap-2 bg-white/70 text-black/70
+          px-4 py-3 rounded-xl border border-gray-100 border-solid
+          flex flex-col gap-2 bg-white/70 text-gray-600
+          shadow-sm
         `,
         className,
       )}
       {...props}
     >
-      {!!title && <Title className="text-blue-900/70">{title}</Title>}
+      {!!title && <Title className="text-gray-800">{title}</Title>}
       {children}
     </section>
   );

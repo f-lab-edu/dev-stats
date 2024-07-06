@@ -18,7 +18,7 @@ export const Profile = ({ profileData }: ProfileProps) => {
         alt={profileData.name}
         width={150}
         height={150}
-        className="rounded-full border-2 border-solid border-blue-100"
+        className="rounded-full border-2 border-solid border-gray-100"
       />
       <div className="flex flex-col items-center">
         <h1 className="text-lg font-semibold">{profileData.name}</h1>

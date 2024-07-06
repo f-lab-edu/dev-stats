@@ -104,7 +104,7 @@ const SearchBar = forwardRef(
 
 const ContainerVariants = cva(
   `
-  flex bg-white pl-4 pr-2 border-[1px] border-blue-100 border-solid
+  flex bg-white pl-4 pr-2 border-[1px] border-gray-300 border-solid
   w-full gap-3 items-center
   hover:shadow-out hover:border-transparent
   focus:shadow-out focus-within:shadow-out focus-within:border-transparent
@@ -140,7 +140,7 @@ const ButtonVariants = cva(
     variants: {
       activeState: {
         active:
-          "bg-blue-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400",
+          "bg-gray-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-400",
         inactive: "bg-gray-300 cursor-default",
       },
       size: {
