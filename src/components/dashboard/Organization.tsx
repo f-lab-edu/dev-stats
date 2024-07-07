@@ -13,6 +13,10 @@ export const Organization = ({ oranizationsData }: OrganizationsProps) => {
     throw new Error("Failed to get Organizations data.");
   }
 
+  if (oranizationsData.length === 0) {
+    throw new Error("No organizations data found.");
+  }
+
   return (
     <div className="flex gap-1">
       {oranizationsData.map(organization => (

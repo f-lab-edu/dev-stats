@@ -13,6 +13,10 @@ export const PinnedRepositories = ({ pinnedReposData }: PinnedReposProps) => {
     throw new Error("Failed to get Pinned Repositories data.");
   }
 
+  if (pinnedReposData.length === 0) {
+    throw new Error("No pinned repositories data found.");
+  }
+
   return (
     <ul className="flex flex-col justify-around h-full mb-2 gap-4 lg:gap-3">
       {pinnedReposData.map(repo => (

@@ -21,6 +21,10 @@ export const Contribution = ({
     throw new Error("Failed to get Contribution data.");
   }
 
+  if (contributedRepoData.length === 0) {
+    throw new Error("No contribution data found.");
+  }
+
   return (
     <div className="flex-1 grid grid-cols-3 grid-rows-3 mt-1 gap-2">
       {contributedRepoData?.slice(0, 9).map((repo, index) => (
