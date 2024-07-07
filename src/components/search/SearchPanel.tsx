@@ -53,7 +53,7 @@ const ContainerVariants = cva(
   {
     variants: {
       size: {
-        sm: "top-[39px] rounded-b-[18px] h-[178px]",
+        sm: "top-[41px] rounded-b-[18px] h-[178px]",
         lg: "top-[51px] rounded-b-[24px] h-[185px]",
       },
     },
