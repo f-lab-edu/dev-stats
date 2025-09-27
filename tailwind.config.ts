@@ -14,7 +14,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       boxShadow: {
-        out: "0 0 3px 2px rgba(189, 204, 254, 1)",
+        out: "0 0 3px 2px rgba(200, 200, 200, 0.7)",
       },
       keyframes: {
         spin: {
@@ -25,6 +25,9 @@ const config: Config = {
       animation: {
         spin: "spin 1s linear infinite",
       },
+    },
+    space: {
+      screenHeightWitoutHeader: "calc(100dvh - 96px)",
     },
   },
   plugins: [],

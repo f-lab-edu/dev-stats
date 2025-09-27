@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center max-w-[1200px] mx-auto h-[100dvh]">
+      <main className="flex flex-col items-center max-w-[1200px] mx-auto h-screenHeightWitoutHeader">
         {children}
       </main>
     </>

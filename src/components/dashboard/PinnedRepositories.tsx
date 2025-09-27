@@ -13,6 +13,10 @@ export const PinnedRepositories = ({ pinnedReposData }: PinnedReposProps) => {
     throw new Error("Failed to get Pinned Repositories data.");
   }
 
+  if (pinnedReposData.length === 0) {
+    throw new Error("No pinned repositories data found.");
+  }
+
   return (
     <ul className="flex flex-col justify-around h-full mb-2 gap-4 lg:gap-3">
       {pinnedReposData.map(repo => (
@@ -24,7 +28,7 @@ export const PinnedRepositories = ({ pinnedReposData }: PinnedReposProps) => {
             "
         >
           <div className="flex items-center gap-1">
-            <div className="w-2 h-2 rounded-full bg-blue-400 mr-1" />
+            <div className="w-2 h-2 rounded-full bg-gray-400 mr-1" />
             <Link
               href={repo.url}
               target="_blank"

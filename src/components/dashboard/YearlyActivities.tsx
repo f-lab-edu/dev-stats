@@ -55,8 +55,8 @@ export const YearlyActivities = ({
         label: "Contributions",
         data: contributionCountData,
         fill: true,
-        borderColor: "rgb(189, 204, 254)",
-        backgroundColor: "rgba(219, 234, 254,0.7)",
+        borderColor: "rgb(177, 177, 177)",
+        backgroundColor: "rgba(200, 200, 200, 0.5)",
         tension: 0.1,
         pointRadius: 1,
         pointHoverRadius: 5,
@@ -171,7 +171,9 @@ const CHART_OPTIONS: ChartOptions<"line"> = {
     y: {
       ticks: {
         maxTicksLimit: 5,
+        stepSize: 10,
       },
+      min: 0,
       border: {
         display: false,
       },

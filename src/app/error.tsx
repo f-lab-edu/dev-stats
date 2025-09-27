@@ -9,8 +9,8 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string };
-  reset: () => void;
+  error?: Error & { digest?: string };
+  reset?: () => void;
 }) {
   useEffect(() => {
     console.error(error);
@@ -27,20 +27,22 @@ export default function Error({
       <Image src={"/warn.svg"} alt="warn" width={80} height={80} />
       <div className="flex-col-center gap-4">
         <Title
-          className="text-lg text-blue-900"
+          className="text-2xl text-blue-900"
           aria-label="Error : Something went wrong!"
         >
           Something went wrong!
         </Title>
-        <button
-          onClick={() => reset()}
-          className="underline"
-          role="button"
-          aria-label="Try again"
-          tabIndex={0}
-        >
-          Try again
-        </button>
+        {reset && (
+          <button
+            onClick={() => reset?.()}
+            className="underline"
+            role="button"
+            aria-label="Try again"
+            tabIndex={0}
+          >
+            Try again
+          </button>
+        )}
       </div>
     </div>
   );

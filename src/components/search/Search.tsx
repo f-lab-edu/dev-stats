@@ -56,7 +56,7 @@ export const Search = ({ size = "sm" }: SearchProps) => {
   };
 
   return (
-    <>
+    <div className="flex justify-center relative w-full">
       <SearchBar
         size={size}
         value={searchQuery}
@@ -74,6 +74,6 @@ export const Search = ({ size = "sm" }: SearchProps) => {
           className={maxWidthClassName[size]}
         />
       )}
-    </>
+    </div>
   );
 };

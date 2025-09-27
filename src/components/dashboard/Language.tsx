@@ -13,6 +13,10 @@ export const Language = ({ languageData }: LanguageProps) => {
     throw new Error("Failed to get Languages data.");
   }
 
+  if (Object.keys(languageData).length === 0) {
+    throw new Error("No language data found.");
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <BarChart data={languageData} colorObject={LANGUAGE_COLOR} />

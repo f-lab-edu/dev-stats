@@ -1,1 +1,1 @@
-export * from "./useFetchUsersBySearchQuery";
+export * from "./useSearchUserQuery";
