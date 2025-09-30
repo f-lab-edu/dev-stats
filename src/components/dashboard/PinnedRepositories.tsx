@@ -3,22 +3,25 @@ import Link from "next/link";
 import { PinnedRepoType } from "@/types";
 import { formatCount } from "@/utils";
 import { STAR_COUNT_PREFIX, STAR_COUNT_SUFFIX } from "@/constants";
+import { useTranslations } from "next-intl";
 
 type PinnedReposProps = {
   pinnedReposData: PinnedRepoType[] | null;
 };
 
 export const PinnedRepositories = ({ pinnedReposData }: PinnedReposProps) => {
+  const t = useTranslations("dashboard");
+
   if (!pinnedReposData) {
-    throw new Error("Failed to get Pinned Repositories data.");
+    throw new Error(t("failed_to_fetch_pinned_repository_data"));
   }
 
   if (pinnedReposData.length === 0) {
-    throw new Error("No pinned repositories data found.");
+    throw new Error(t("no_pinned_repository_data_found"));
   }
 
   return (
-    <ul className="flex flex-col justify-around h-full mb-2 gap-4 lg:gap-3">
+    <ul className="flex flex-col justify-start h-full mb-2 gap-4 lg:gap-3 pt-2">
       {pinnedReposData.map(repo => (
         <li
           key={repo.name}

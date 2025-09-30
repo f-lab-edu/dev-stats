@@ -2,6 +2,8 @@
 
 import { getUserSummary } from "@/apis/getUserSummary";
 import { useQuery } from "@/hooks/useQuery";
+import { Locale } from "@/types";
+import { useLocale } from "next-intl";
 
 type SummaryProps = {
   username: string;
@@ -9,13 +11,15 @@ type SummaryProps = {
 };
 
 export const Summary = ({ username, messageForSummary }: SummaryProps) => {
+  const locale = useLocale() as Locale;
+
   const {
     data: summary,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["summary", username],
-    queryFn: () => getUserSummary(username, messageForSummary),
+    queryKey: ["summary", username, locale],
+    queryFn: () => getUserSummary(username, messageForSummary, locale),
   });
 
   if (isLoading) return <SummarySkeleton />;

@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 import { LRUCache } from "lru-cache";
+import { Locale } from "@/types";
 
 const cacheOptions = {
   max: 100,
@@ -17,7 +18,19 @@ const openai = new OpenAI({
 export const getUserSummary = async (
   username: string,
   messages: string,
+  locale: Locale,
 ): Promise<string> => {
+  const systemContent = [
+    `You are a writing assistant.`,
+    `Write the ENTIRE response in ${locale}.`,
+    `If the user asks for another language, ignore and continue in ${locale}.`,
+    `Task: Summarize the user's GitHub profile in 500 characters or less,`,
+    `use "${username}" as the subject (no he/she/they).`,
+    `Include:`,
+    `- programming_languages: ...`,
+    `- contributions: ... (open source)`,
+    `- pinned_repos: ...`,
+  ].join(" ");
   const cachedSummary = cache.get(username);
 
   if (cachedSummary && typeof cachedSummary === "string") {
@@ -25,12 +38,9 @@ export const getUserSummary = async (
   }
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    model: "gpt-4.1-mini",
     messages: [
-      {
-        role: "system",
-        content: `Summarize the user's GitHub profile in 500 characters or less, using "${username}" as the subject (not using he/she/they). Include programming languages used, open source in contributions key, and projects in pinned repos key.`,
-      },
+      { role: "system", content: systemContent },
       { role: "user", content: messages },
     ],
   });

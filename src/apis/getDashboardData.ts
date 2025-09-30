@@ -66,7 +66,7 @@ const getMessageForSummary = (data: DashboardDataType) => {
     .map(org => org.login)
     .join(", ");
   const contributedRepos = (data.contributedRepos || [])
-    .map(repo => `${repo.repository} + ${repo.stargazerCount}`)
+    .map(repo => `${repo.repository} + ${repo.stargazerCount} stars`)
     .join(", ");
   const pinnedRepos = data.pinnedRepos || [];
 

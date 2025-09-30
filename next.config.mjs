@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+import createNextIntlPlugin from "next-intl/plugin";
+
 const nextConfig = {
   env: {
     GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
@@ -13,4 +16,6 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin();
+
+export default withNextIntl(nextConfig);

@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { ContributedRepoType } from "@/types";
 import { formatCount } from "@/utils";
+import { useTranslations } from "next-intl";
 
 const GITHUB_URL = "https://www.github.com/";
 const PREFIX = "(★";
@@ -17,12 +18,14 @@ export const Contribution = ({
   contributedRepoData,
   username,
 }: ContributionProps) => {
+  const t = useTranslations("dashboard");
+
   if (!contributedRepoData) {
-    throw new Error("Failed to get Contribution data.");
+    throw new Error(t("failed_to_fetch_contribution_data"));
   }
 
   if (contributedRepoData.length === 0) {
-    throw new Error("No contribution data found.");
+    throw new Error(t("no_contribution_data_found"));
   }
 
   return (

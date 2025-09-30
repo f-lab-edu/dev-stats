@@ -1,7 +1,10 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles";
+import "@/styles";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,14 +29,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
+  params: Promise<{ locale: string }>;
   children: ReactNode;
 }>) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
     </html>
   );
 }
