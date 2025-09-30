@@ -1,0 +1,31 @@
+{
+  "search": {
+    "search": "Search",
+    "search_icon": "Search icon",
+    "search_placeholder": "Search for a user",
+    "search_button": "Search button",
+    "no_result": "No results found",
+    "error": "An error occurred",
+    "user_not_found": "No User Found",
+    "go_back_home": "Go back home"
+  },
+  "dashboard": {
+    "languages": "Languages",
+    "organizations": "Organizations",
+    "contribution": "Contribution",
+    "pinned_repositories": "Pinned Repositories",
+    "yearly_activities": "Yearly Activities",
+    "summary": "Summary",
+
+    "no_language_data_found": "No language data found",
+    "failed_to_fetch_language_data": "Failed to fetch language data",
+    "no_organization_data_found": "No organization data found",
+    "failed_to_fetch_organization_data": "Failed to fetch organization data",
+    "no_contribution_data_found": "No contribution data found",
+    "failed_to_fetch_contribution_data": "Failed to fetch contribution data",
+    "no_pinned_repository_data_found": "No pinned repository data found",
+    "failed_to_fetch_pinned_repository_data": "Failed to fetch pinned repository data",
+    "failed_to_fetch_summary_data": "Failed to fetch summary data",
+    "failed_to_fetch_yearly_activities_data": "Failed to fetch yearly activities data"
+  }
+}

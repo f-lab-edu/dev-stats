@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { OrganizationType } from "@/types";
+import { useTranslations } from "next-intl";
 
 const GITHUB_URL = "https://github.com/";
 
@@ -9,12 +10,14 @@ type OrganizationsProps = {
 };
 
 export const Organization = ({ oranizationsData }: OrganizationsProps) => {
+  const t = useTranslations("dashboard");
+
   if (!oranizationsData) {
-    throw new Error("Failed to get Organizations data.");
+    throw new Error(t("failed_to_fetch_organization_data"));
   }
 
   if (oranizationsData.length === 0) {
-    throw new Error("No organizations data found.");
+    throw new Error(t("no_organization_data_found"));
   }
 
   return (

@@ -1,0 +1,31 @@
+{
+  "search": {
+    "search": "검색",
+    "search_icon": "검색 아이콘",
+    "search_placeholder": "유저 검색",
+    "search_button": "검색 버튼",
+    "no_result": "검색 결과가 없습니다.",
+    "error": "검색 중 오류가 발생했습니다.",
+    "user_not_found": "유저를 찾을 수 없습니다.",
+    "go_back_home": "홈으로 돌아가기"
+  },
+  "dashboard": {
+    "languages": "언어",
+    "organizations": "조직",
+    "contribution": "기여",
+    "pinned_repositories": "고정된 레포지토리",
+    "yearly_activities": "연간 활동",
+    "summary": "요약",
+
+    "no_language_data_found": "사용한 언어가 없습니다.",
+    "failed_to_fetch_language_data": "언어 데이터를 가져오는데 실패했습니다.",
+    "no_organization_data_found": "참여한 조직이 없습니다.",
+    "failed_to_fetch_organization_data": "조직 데이터를 가져오는데 실패했습니다.",
+    "no_contribution_data_found": "기여 기록이 없습니다.",
+    "failed_to_fetch_contribution_data": "기여 기록을 가져오는데 실패했습니다.",
+    "no_pinned_repository_data_found": "고정한 레포지토리가 없습니다.",
+    "failed_to_fetch_pinned_repository_data": "고정한 레포지토리 데이터를 가져오는데 실패했습니다.",
+    "failed_to_fetch_summary_data": "요약 데이터를 가져오는데 실패했습니다.",
+    "failed_to_fetch_yearly_activities_data": "연간 활동 데이터를 가져오는데 실패했습니다."
+  }
+}

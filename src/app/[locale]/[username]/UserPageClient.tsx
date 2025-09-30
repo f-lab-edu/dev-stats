@@ -14,6 +14,7 @@ import {
   Summary,
 } from "@/components";
 import { DashboardDataType } from "@/apis";
+import { useTranslations } from "next-intl";
 
 export const UserPageClient = ({
   username,
@@ -27,6 +28,7 @@ export const UserPageClient = ({
 }: DashboardDataType & {
   username: string;
 }) => {
+  const t = useTranslations("dashboard");
   const yearlyContributions = Object.values(yearlyActivities || {}).reduce(
     (acc, value) => {
       return acc + value.contributionCount;
@@ -36,10 +38,10 @@ export const UserPageClient = ({
 
   const getYearlyActivitiesTitle = () => {
     if (!yearlyActivities) {
-      return "Yearly Activities";
+      return t("yearly_activities");
     }
 
-    return `Yearly Activities (${yearlyContributions})`;
+    return `${t("yearly_activities")} (${yearlyContributions})`;
   };
 
   return (
@@ -63,13 +65,13 @@ export const UserPageClient = ({
             </AsyncBoundary>
           </Section>
 
-          <Section title="Languages" className="row-span-2">
+          <Section title={t("languages")} className="row-span-2">
             <AsyncBoundary loadingFallback={<LanguageSkeleton />}>
               <Language languageData={languages} />
             </AsyncBoundary>
           </Section>
 
-          <Section title="Organizations" className="row-span-1">
+          <Section title={t("organizations")} className="row-span-1">
             <AsyncBoundary loadingFallback={<OrganizationSkeleton />}>
               <Organization oranizationsData={organizations} />
             </AsyncBoundary>
@@ -88,7 +90,10 @@ export const UserPageClient = ({
               lg:grid lg:grid-cols-9 lg:grid-rows-4 
             "
           >
-            <Section title="Summary" className="col-span-9 row-span-1">
+            <Section
+              title={t("summary")}
+              className="col-span-9 row-span-1 overflow-y-auto"
+            >
               <AsyncBoundary>
                 <Summary
                   username={username}
@@ -97,7 +102,10 @@ export const UserPageClient = ({
               </AsyncBoundary>
             </Section>
 
-            <Section title="Contribution" className="col-span-5 row-span-4">
+            <Section
+              title={t("contribution")}
+              className="col-span-5 row-span-4"
+            >
               <AsyncBoundary>
                 <Contribution
                   username={username}
@@ -107,7 +115,7 @@ export const UserPageClient = ({
             </Section>
 
             <Section
-              title="Pinned Repositories"
+              title={t("pinned_repositories")}
               className="col-span-4 row-span-4"
             >
               <AsyncBoundary>

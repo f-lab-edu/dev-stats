@@ -21,6 +21,7 @@ import {
 import "chart.js/auto";
 
 import { YearlyActivitiesType } from "@/types";
+import { useTranslations } from "next-intl";
 
 ChartJS.register(
   CategoryScale,
@@ -39,11 +40,14 @@ type YearlyActivitiesProps = {
 export const YearlyActivities = ({
   yearlyAtivitiesData,
 }: YearlyActivitiesProps) => {
+  const t = useTranslations("dashboard");
+
   if (!yearlyAtivitiesData) {
-    throw new Error("Failed to get Yearly Activities data.");
+    throw new Error(t("failed_to_fetch_yearly_activities_data"));
   }
 
   const dateData = yearlyAtivitiesData.map(data => data.date);
+
   const contributionCountData = yearlyAtivitiesData.map(
     data => data.contributionCount,
   );

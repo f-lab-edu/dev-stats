@@ -3,18 +3,21 @@ import { LANGUAGE_COLOR } from "@/data/languageColor";
 import { cn } from "@/utils";
 
 import { BarChart } from "../chart";
+import { useTranslations } from "next-intl";
 
 type LanguageProps = {
   languageData: LanguagesType | null;
 };
 
 export const Language = ({ languageData }: LanguageProps) => {
+  const t = useTranslations("dashboard");
+
   if (!languageData) {
-    throw new Error("Failed to get Languages data.");
+    throw new Error(t("failed_to_fetch_language_data"));
   }
 
   if (Object.keys(languageData).length === 0) {
-    throw new Error("No language data found.");
+    throw new Error(t("no_language_data_found"));
   }
 
   return (

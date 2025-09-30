@@ -34,7 +34,7 @@ const SearchBar = forwardRef(
     }: SearchBarProps,
     ref: Ref<HTMLInputElement>,
   ) => {
-    const t = useTranslations();
+    const t = useTranslations("search");
     const internalRef = useRef<HTMLInputElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const isValueExist = value.length > 0;
@@ -62,7 +62,7 @@ const SearchBar = forwardRef(
       >
         <Image
           src="/search.svg"
-          alt="search"
+          alt={t("search_icon")}
           width={TYPE_ICON_SIZE[size]}
           height={TYPE_ICON_SIZE[size]}
         />
@@ -86,14 +86,14 @@ const SearchBar = forwardRef(
         />
         <button
           ref={buttonRef}
-          aria-label="Search"
+          aria-label={t("search_button")}
           tabIndex={0}
           onClick={onSearch}
           className={cn(ButtonVariants({ activeState, size }))}
         >
           <Image
             src="/next.svg"
-            alt="search_button"
+            alt={t("search_button")}
             width={TYPE_ICON_SIZE[size]}
             height={TYPE_ICON_SIZE[size]}
             className="ml-[2px]"

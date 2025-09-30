@@ -1,12 +1,15 @@
 import Link from "next/link";
 
 import { Title } from "@/components";
+import { useTranslations } from "next-intl";
 
 type UserNotFoundProps = {
   username: string;
 };
 
 export default function UserNotFound({ username }: UserNotFoundProps) {
+  const t = useTranslations("search");
+
   return (
     <div
       className="
@@ -19,11 +22,11 @@ export default function UserNotFound({ username }: UserNotFoundProps) {
         className="text-2xl text-blue-900 flex flex-col text-center"
         aria-label="Error : No User Found!"
       >
-        No User Found
+        {t("user_not_found")}
         <span className="text-base">({username})</span>
       </Title>
       <Link href="/" className="underline" role="button" tabIndex={0}>
-        Go back home
+        {t("go_back_home")}
       </Link>
     </div>
   );
