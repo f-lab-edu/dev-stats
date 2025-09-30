@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { cva } from "class-variance-authority";
 import { cn } from "@/utils/cn";
+import { useTranslations } from "next-intl";
 
 type SearchBarProps = {
   containerClassName?: string;
@@ -33,6 +34,7 @@ const SearchBar = forwardRef(
     }: SearchBarProps,
     ref: Ref<HTMLInputElement>,
   ) => {
+    const t = useTranslations();
     const internalRef = useRef<HTMLInputElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const isValueExist = value.length > 0;
@@ -68,8 +70,8 @@ const SearchBar = forwardRef(
           ref={internalRef}
           value={value}
           onChange={onChange}
-          placeholder="Search for a user"
-          aria-label="Search for a user"
+          placeholder={t("search_placeholder")}
+          aria-label={t("search_placeholder")}
           onKeyDown={handleKeyDown}
           className={cn(InputVariants({ size }))}
           {...props}
