@@ -21,7 +21,7 @@ export const PinnedRepositories = ({ pinnedReposData }: PinnedReposProps) => {
   }
 
   return (
-    <ul className="flex flex-col justify-around h-full mb-2 gap-4 lg:gap-3">
+    <ul className="flex flex-col justify-start h-full mb-2 gap-4 lg:gap-3 pt-2">
       {pinnedReposData.map(repo => (
         <li
           key={repo.name}
