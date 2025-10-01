@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 
 import { ProfileType } from "@/types";
+import Link from "next/link";
 
 type ProfileProps = {
   profileData: ProfileType | null;
@@ -21,7 +24,17 @@ export const Profile = ({ profileData }: ProfileProps) => {
         className="rounded-full border-2 border-solid border-gray-100"
       />
       <div className="flex flex-col items-center">
-        <h1 className="text-lg font-semibold">{profileData.name}</h1>
+        <Link
+          href={profileData.html_url}
+          target="_blank"
+          rel="noreferrer"
+          className="hover:underline"
+          aria-label={`${profileData.name}의 GitHub 프로필`}
+          tabIndex={0}
+          role="link"
+        >
+          <h1 className="text-lg font-semibold">{profileData.name}</h1>
+        </Link>
         <h2 className="text-lg leading-4 text-gray-500">{profileData.login}</h2>
         <p className="mt-3">{profileData.bio}</p>
       </div>
