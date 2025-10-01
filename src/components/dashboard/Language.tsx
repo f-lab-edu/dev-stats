@@ -1,3 +1,5 @@
+"use client";
+
 import { LanguagesType } from "@/types";
 import { LANGUAGE_COLOR } from "@/data/languageColor";
 import { cn } from "@/utils";
